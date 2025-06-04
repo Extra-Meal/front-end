@@ -17,14 +17,14 @@ import type { APIError } from "@/types/api.type";
  * const { data, isLoading, error, isError } = useGetData<User[]>('/users');
  */
 export function useGetData<R = any>(
-	endpoint: string,
-	options?: Omit<UseQueryOptions<R, APIError, R, [string]>, "queryKey" | "queryFn">
+  endpoint: string,
+  options?: Omit<UseQueryOptions<R, APIError, R, [string]>, "queryKey" | "queryFn">
 ) {
-	return useQuery<R, APIError, R, [string]>({
-		queryKey: [endpoint],
-		queryFn: () => getRequest<R>(endpoint),
-		...options,
-	});
+  return useQuery<R, APIError, R, [string]>({
+    queryKey: [endpoint],
+    queryFn: () => getRequest<R>(endpoint),
+    ...options,
+  });
 }
 
 /**
@@ -41,15 +41,15 @@ export function useGetData<R = any>(
  * - The query key is composed of the endpoint and the current search parameters.
  */
 export function useGetDataWithParams<R = any>(
-	endpoint: string,
-	options?: Omit<UseQueryOptions<R, APIError, R, [string, URLSearchParams]>, "queryKey" | "queryFn">
+  endpoint: string,
+  options?: Omit<UseQueryOptions<R, APIError, R, [string, URLSearchParams]>, "queryKey" | "queryFn">
 ) {
-	const [params] = useSearchParams();
-	return useQuery<R, APIError, R, [string, URLSearchParams]>({
-		queryKey: [endpoint, params],
-		queryFn: () => getRequest<R>(endpoint, { params }),
-		...options,
-	});
+  const [params] = useSearchParams();
+  return useQuery<R, APIError, R, [string, URLSearchParams]>({
+    queryKey: [endpoint, params],
+    queryFn: () => getRequest<R>(endpoint, { params }),
+    ...options,
+  });
 }
 
 /**
@@ -69,14 +69,14 @@ export function useGetDataWithParams<R = any>(
  * mutate({ name: 'John Doe' });
  */
 export function usePostData<T = any, R = any>(
-	endpoint: string,
-	options?: Omit<UseMutationOptions<R, APIError, T, [string, T]>, "mutationKey" | "mutationFn">
+  endpoint: string,
+  options?: Omit<UseMutationOptions<R, APIError, T, [string, T]>, "mutationKey" | "mutationFn">
 ) {
-	return useMutation<R, APIError, T, [string, T]>({
-		mutationKey: [endpoint],
-		mutationFn: (data: T) => postRequest<T, R>(endpoint, { data }),
-		...options,
-	});
+  return useMutation<R, APIError, T, [string, T]>({
+    mutationKey: [endpoint],
+    mutationFn: (data: T) => postRequest<T, R>(endpoint, { data }),
+    ...options,
+  });
 }
 
 /**
@@ -93,14 +93,14 @@ export function usePostData<T = any, R = any>(
  * mutation.mutate({ name: 'New Name' });
  */
 export function usePatchData<T = any, R = any>(
-	endpoint: string,
-	options?: Omit<UseMutationOptions<R, APIError, T, [string, T]>, "mutationKey" | "mutationFn">
+  endpoint: string,
+  options?: Omit<UseMutationOptions<R, APIError, T, [string, T]>, "mutationKey" | "mutationFn">
 ) {
-	return useMutation<R, APIError, T, [string, T]>({
-		mutationKey: [endpoint],
-		mutationFn: (data: T) => patchRequest<T, R>(endpoint, { data }),
-		...options,
-	});
+  return useMutation<R, APIError, T, [string, T]>({
+    mutationKey: [endpoint],
+    mutationFn: (data: T) => patchRequest<T, R>(endpoint, { data }),
+    ...options,
+  });
 }
 
 /**
@@ -117,14 +117,14 @@ export function usePatchData<T = any, R = any>(
  * mutation.mutate({ name: 'John' });
  */
 export function usePutData<T = any, R = any>(
-	endpoint: string,
-	options?: Omit<UseMutationOptions<R, APIError, T, [string, T]>, "mutationKey" | "mutationFn">
+  endpoint: string,
+  options?: Omit<UseMutationOptions<R, APIError, T, [string, T]>, "mutationKey" | "mutationFn">
 ) {
-	return useMutation<R, APIError, T, [string, T]>({
-		mutationKey: [endpoint],
-		mutationFn: (data: T) => putRequest<T, R>(endpoint, { data }),
-		...options,
-	});
+  return useMutation<R, APIError, T, [string, T]>({
+    mutationKey: [endpoint],
+    mutationFn: (data: T) => putRequest<T, R>(endpoint, { data }),
+    ...options,
+  });
 }
 
 /**
@@ -139,11 +139,11 @@ export function usePutData<T = any, R = any>(
  * deleteMutation.mutate('/api/resource/1');
  */
 export function useDeleteData<R = any>(
-	options?: Omit<UseMutationOptions<R, APIError, string, [string]>, "mutationKey" | "mutationFn">
+  options?: Omit<UseMutationOptions<R, APIError, string, [string]>, "mutationKey" | "mutationFn">
 ) {
-	return useMutation<R, APIError, string, [string]>({
-		mutationKey: ["delete"], // or pass a key function if needed
-		mutationFn: (endpoint: string) => deleteRequest<R>(endpoint),
-		...options,
-	});
+  return useMutation<R, APIError, string, [string]>({
+    mutationKey: ["delete"], // or pass a key function if needed
+    mutationFn: (endpoint: string) => deleteRequest<R>(endpoint),
+    ...options,
+  });
 }

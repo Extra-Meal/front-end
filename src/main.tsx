@@ -10,14 +10,14 @@ import "./index.css";
 import { Router } from "./router.tsx";
 
 createRoot(document.getElementById("root")!).render(
-	<StrictMode>
-		<QueryClientProvider client={new QueryClient()}>
-			<ThemeProvider>
-				<RouterProvider router={Router} />
-				<Toaster position="top-center" richColors />
-				{/* React Query Devtools for debugging */}
-				<ReactQueryDevtools initialIsOpen={false} />
-			</ThemeProvider>
-		</QueryClientProvider>
-	</StrictMode>
+  <StrictMode>
+    <QueryClientProvider client={new QueryClient()}>
+      <ThemeProvider>
+        <RouterProvider router={Router} />
+        <Toaster position="top-center" richColors />
+        {/* React Query Devtools for debugging */}
+        <ReactQueryDevtools initialIsOpen={false} />
+      </ThemeProvider>
+    </QueryClientProvider>
+  </StrictMode>
 );

@@ -14,28 +14,28 @@ import axios, { AxiosError, type AxiosRequestConfig, type AxiosResponse } from "
  * ```
  */
 export const api = axios.create({
-	// ! Add production API URL here
-	baseURL: "",
-	headers: {
-		"Content-Type": "application/json",
-	},
+  // ! Add production API URL here
+  baseURL: "",
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
 //? Request interceptor (for adding auth tokens)
 api.interceptors.request.use(
-	(config) => {
-		// Get token from localStorage or sessionStorage
-		const token = localStorage.getItem("token") || sessionStorage.getItem("token");
+  (config) => {
+    // Get token from localStorage or sessionStorage
+    const token = localStorage.getItem("token") || sessionStorage.getItem("token");
 
-		if (token) {
-			config.headers.Authorization = `Bearer ${token}`;
-		}
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
 
-		return config;
-	},
-	(error) => {
-		return Promise.reject(error);
-	}
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
 );
 
 type TStatus = "success" | "failed";
@@ -53,29 +53,29 @@ type TStatus = "success" | "failed";
  * @throws An object containing status, code, and data if an error is encountered.
  */
 export function globalResponseFormat<R = any>(res: unknown) {
-	let resStatus: TStatus;
+  let resStatus: TStatus;
 
-	if (res instanceof AxiosError) {
-		resStatus = "failed";
-		throw {
-			status: resStatus,
-			code: res.response?.status,
-			data: res.response?.data,
-		};
-	}
+  if (res instanceof AxiosError) {
+    resStatus = "failed";
+    throw {
+      status: resStatus,
+      code: res.response?.status,
+      data: res.response?.data,
+    };
+  }
 
-	if (res instanceof Error) {
-		resStatus = "failed";
-		throw {
-			status: resStatus,
-			code: 500,
-			data: res.message,
-		};
-	}
+  if (res instanceof Error) {
+    resStatus = "failed";
+    throw {
+      status: resStatus,
+      code: 500,
+      data: res.message,
+    };
+  }
 
-	const { data } = res as AxiosResponse<R>;
-	resStatus = "success";
-	return data;
+  const { data } = res as AxiosResponse<R>;
+  resStatus = "success";
+  return data;
 }
 
 /**
@@ -88,16 +88,16 @@ export function globalResponseFormat<R = any>(res: unknown) {
  * @returns A promise that resolves to the formatted response of type R.
  */
 export async function getRequest<R = any>(
-	path: string,
-	params: Pick<AxiosRequestConfig, "params"> = {},
-	options: Omit<AxiosRequestConfig, "params"> = {}
+  path: string,
+  params: Pick<AxiosRequestConfig, "params"> = {},
+  options: Omit<AxiosRequestConfig, "params"> = {}
 ) {
-	try {
-		const response = await api.get(path, { params, ...options });
-		return globalResponseFormat<R>(response);
-	} catch (error) {
-		return globalResponseFormat(error);
-	}
+  try {
+    const response = await api.get(path, { params, ...options });
+    return globalResponseFormat<R>(response);
+  } catch (error) {
+    return globalResponseFormat(error);
+  }
 }
 
 /**
@@ -111,16 +111,16 @@ export async function getRequest<R = any>(
  * @returns A promise that resolves to a globally formatted response of type `R`, or an error formatted response.
  */
 export async function postRequest<T = any, R = any>(
-	path: string,
-	data: Pick<AxiosRequestConfig<T>, "data"> = {},
-	options: Omit<AxiosRequestConfig<T>, "data"> = {}
+  path: string,
+  data: Pick<AxiosRequestConfig<T>, "data"> = {},
+  options: Omit<AxiosRequestConfig<T>, "data"> = {}
 ) {
-	try {
-		const response = await api.post(path, data, options);
-		return globalResponseFormat<R>(response);
-	} catch (error) {
-		return globalResponseFormat(error);
-	}
+  try {
+    const response = await api.post(path, data, options);
+    return globalResponseFormat<R>(response);
+  } catch (error) {
+    return globalResponseFormat(error);
+  }
 }
 
 /**
@@ -134,16 +134,16 @@ export async function postRequest<T = any, R = any>(
  * @returns A promise that resolves to a globally formatted response of type `R`.
  */
 export async function putRequest<T = any, R = any>(
-	path: string,
-	data: Pick<AxiosRequestConfig<T>, "data"> = {},
-	options: Omit<AxiosRequestConfig<T>, "data"> = {}
+  path: string,
+  data: Pick<AxiosRequestConfig<T>, "data"> = {},
+  options: Omit<AxiosRequestConfig<T>, "data"> = {}
 ) {
-	try {
-		const response = await api.put(path, data, options);
-		return globalResponseFormat<R>(response);
-	} catch (error) {
-		return globalResponseFormat(error);
-	}
+  try {
+    const response = await api.put(path, data, options);
+    return globalResponseFormat<R>(response);
+  } catch (error) {
+    return globalResponseFormat(error);
+  }
 }
 
 /**
@@ -160,12 +160,12 @@ export async function putRequest<T = any, R = any>(
  * ```
  */
 export async function deleteRequest<R = any>(path: string, options: Omit<AxiosRequestConfig, "data"> = {}) {
-	try {
-		const response = await api.delete(path, options);
-		return globalResponseFormat<R>(response);
-	} catch (error) {
-		return globalResponseFormat(error);
-	}
+  try {
+    const response = await api.delete(path, options);
+    return globalResponseFormat<R>(response);
+  } catch (error) {
+    return globalResponseFormat(error);
+  }
 }
 
 /**
@@ -179,14 +179,14 @@ export async function deleteRequest<R = any>(path: string, options: Omit<AxiosRe
  * @returns A promise that resolves to the formatted response of type `R`, or an error response if the request fails.
  */
 export async function patchRequest<T = any, R = any>(
-	path: string,
-	data: Pick<AxiosRequestConfig<T>, "data"> = {},
-	options: Omit<AxiosRequestConfig<T>, "data"> = {}
+  path: string,
+  data: Pick<AxiosRequestConfig<T>, "data"> = {},
+  options: Omit<AxiosRequestConfig<T>, "data"> = {}
 ) {
-	try {
-		const response = await api.patch(path, data, options);
-		return globalResponseFormat<R>(response);
-	} catch (error) {
-		return globalResponseFormat(error);
-	}
+  try {
+    const response = await api.patch(path, data, options);
+    return globalResponseFormat<R>(response);
+  } catch (error) {
+    return globalResponseFormat(error);
+  }
 }
