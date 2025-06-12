@@ -15,7 +15,7 @@ import axios, { AxiosError, type AxiosRequestConfig, type AxiosResponse } from "
  */
 export const api = axios.create({
   // ! Add production API URL here
-  baseURL: "",
+  baseURL: "http://localhost:3000/api",
   headers: {
     "Content-Type": "application/json",
   },
