@@ -30,8 +30,12 @@ export default function Login() {
       console.log("🚀 ~ Login ~ error:", error);
       toast.error(error.data?.message || error.data || "Login failed. Please try again.");
     },
-    onSuccess: () => {
-      toast.success("Login successful!");
+    onSuccess: (data) => {
+      const { token } = data;
+      if (form.getValues("rememberMe")) localStorage.setItem("token", token);
+      else sessionStorage.setItem("token", token);
+
+      toast.success(data.message || "Login successful!");
       navigate("/");
     },
   });
