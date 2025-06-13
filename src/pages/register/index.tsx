@@ -2,14 +2,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router";
 import { toast } from "sonner";
 import * as z from "zod";
 
+import GoogleAuthButton from "@/components/googleAuthButton";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { OrSeparator } from "@/components/ui/orSeparator";
 import { usePostData } from "@/hooks/useApi";
 
 const formSchema = z
@@ -85,6 +88,11 @@ export default function Register() {
 
   return (
     <div className="space-y-6">
+      <GoogleAuthButton className="bg-foreground text-background hover:bg-foreground/90 w-full">
+        <FcGoogle />
+        Continue with Google
+      </GoogleAuthButton>
+      <OrSeparator />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <FormField
@@ -126,7 +134,7 @@ export default function Register() {
                     <Input type={showPassword ? "text" : "password"} {...field} />
                     <button
                       type="button"
-                      className="hover:text-primary absolute top-1/2 right-3 -translate-y-1/2 text-gray-500"
+                      className="hover:text-primary text-muted-foreground/70 absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer"
                       onClick={() => setShowPassword(!showPassword)}
                     >
                       {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -134,7 +142,9 @@ export default function Register() {
                     </button>
                   </div>
                 </FormControl>
-                <FormDescription>at least 8 characters and include uppercase, lowercase, and numbers.</FormDescription>
+                <FormDescription className="text-xs">
+                  at least 8 characters and include uppercase, lowercase, and numbers.
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -151,7 +161,7 @@ export default function Register() {
                     <Input type={showConfirmPassword ? "text" : "password"} {...field} />
                     <button
                       type="button"
-                      className="hover:text-primary text-primary absolute top-1/2 right-3 -translate-y-1/2"
+                      className="hover:text-primary text-muted-foreground/70 absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer"
                       onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                     >
                       {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -200,7 +210,7 @@ export default function Register() {
       <div className="text-center">
         <p className="text-sm text-gray-500">
           Already have an account?
-          <Link to={"/login"} className="text-primary ml-2 font-medium hover:underline">
+          <Link to={"/auth/login"} className="text-primary ml-2 font-medium hover:underline">
             Sign in
           </Link>
         </p>
