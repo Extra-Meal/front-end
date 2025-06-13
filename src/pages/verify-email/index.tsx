@@ -8,7 +8,7 @@ import { usePostData } from "@/hooks/useApi";
 export default function VerifyEmail() {
   const navigate = useNavigate();
   const { token } = useParams();
-  const { mutateAsync, isPending, isError, error } = usePostData("/auth/verify-email", {
+  const { mutate, isPending, isError, error } = usePostData("/auth/verify-email", {
     onError: (error) => {
       console.error("Email Verification Error:", error);
       toast.error(error.data?.message || "An error occurred while verifying your email.");
@@ -22,12 +22,8 @@ export default function VerifyEmail() {
   });
   useEffect(() => {
     if (!token) return;
-    const verify = async () => {
-      try {
-        await mutateAsync(token);
-      } catch (_) {}
-    };
-    verify();
+
+    mutate(token);
   }, []);
   return (
     <main className="flex h-screen flex-col items-center justify-center gap-6">
