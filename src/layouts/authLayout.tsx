@@ -53,7 +53,7 @@ export default function AuthLayout() {
       </div>
       <div
         className={cn(
-          "bg-primary-foreground shadow-primary-foreground/20 relative hidden h-screen flex-1 items-center justify-center overflow-hidden shadow-xl transition-[right] duration-500 lg:right-0 lg:flex",
+          " shadow-primary-foreground/20 relative hidden h-screen flex-1 items-center justify-center overflow-hidden shadow-xl transition-[right] duration-500 lg:right-0 lg:flex",
           isLoginPage ? "rounded-l-2xl" : "rounded-r-2xl lg:right-[50%]"
         )}
       >
