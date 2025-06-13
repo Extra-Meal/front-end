@@ -1,9 +1,7 @@
 import { Outlet } from "react-router";
 
-
-import ThemeToggler from "@/components/themeToggler";
-import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
+import Navbar from "@/components/navbar";
 
 export default function MainLayout() {
   return (
