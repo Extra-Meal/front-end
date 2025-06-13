@@ -2,14 +2,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router";
 import { toast } from "sonner";
 import * as z from "zod";
 
+import GoogleAuthButton from "@/components/googleAuthButton";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { OrSeparator } from "@/components/ui/orSeparator";
 import { usePostData } from "@/hooks/useApi";
 
 const formSchema = z.object({
@@ -55,6 +58,11 @@ export default function Login() {
 
   return (
     <div className="space-y-6">
+      <GoogleAuthButton className="bg-foreground text-background hover:bg-foreground/90 w-full">
+        <FcGoogle />
+        Continue with Google
+      </GoogleAuthButton>
+      <OrSeparator />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <FormField
