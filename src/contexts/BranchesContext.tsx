@@ -122,8 +122,8 @@ type BranchesContextType = {
   branches: Branch[];
   currentBranch: Branch | null;
   isDisplayDetails: boolean;
-  removeDetails: any;
-  displayWholeBranches: any;
+  removeDetails: () => void;
+  displayWholeBranches: () => void;
 };
 
 const BranchesContext = createContext<BranchesContextType | undefined>(undefined);
