@@ -1,8 +1,8 @@
 import { createBrowserRouter } from "react-router";
 
-import AuthLayout from "./layouts/authLayout";
 import BranchDetails from "./components/BranchDetails";
 import { BranchesProvider } from "./contexts/BranchesContext";
+import AuthLayout from "./layouts/authLayout";
 import MainLayout from "./layouts/mainLayout";
 import About from "./pages/about";
 import Contact from "./pages/contact";

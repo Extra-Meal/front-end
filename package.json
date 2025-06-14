@@ -44,7 +44,7 @@
     "sonner": "^2.0.5",
     "tailwind-merge": "^3.3.0",
     "tailwindcss": "^4.1.8",
-    "zod": "^3.25.51" ,
+    "zod": "^3.25.51",
     "leaflet": "^1.9.4"
   },
   "devDependencies": {
