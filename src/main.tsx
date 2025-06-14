@@ -1,3 +1,4 @@
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { StrictMode } from "react";
@@ -12,12 +13,14 @@ import { Router } from "./router.tsx";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={new QueryClient()}>
-      <ThemeProvider>
-        <RouterProvider router={Router} />
-        <Toaster position="top-center" richColors />
-        {/* React Query Devtools for debugging */}
-        <ReactQueryDevtools initialIsOpen={false} />
-      </ThemeProvider>
+      <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+        <ThemeProvider>
+          <RouterProvider router={Router} />
+          <Toaster position="top-center" richColors />
+          {/* React Query Devtools for debugging */}
+          <ReactQueryDevtools initialIsOpen={false} />
+        </ThemeProvider>
+      </GoogleOAuthProvider>
     </QueryClientProvider>
   </StrictMode>
 );
