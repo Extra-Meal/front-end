@@ -262,7 +262,7 @@ export default function Navbar() {
   );
 }
 
-const renderMenuItem = (item: (typeof menu)[number], currentPath: String) => {
+const renderMenuItem = (item: (typeof menu)[number], currentPath: string) => {
   const isActive = currentPath === item.url;
   return (
     <NavigationMenuItem key={item.title}>
