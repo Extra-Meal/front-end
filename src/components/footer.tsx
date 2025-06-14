@@ -9,7 +9,7 @@ export default function Footer() {
     <div className="footer pt-[50px] pb-3 shadow-[0_-4px_4px_-2px_rgba(0,0,0,0.1)]">
       <div className="footer-content">
         <div className="logo relative flex justify-center px-10 pb-5">
-          <svg width="196" height="50.50098037021091" viewBox="0 0 228.26005432875453 86" >
+          <svg width="196" height="50.50098037021091" viewBox="0 0 228.26005432875453 86">
             <defs id="SvgjsDefs3416"></defs>
             <g
               id="SvgjsG3417"
