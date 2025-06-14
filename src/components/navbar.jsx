@@ -49,8 +49,8 @@ export default function Navbar() {
               <NavigationMenuList>{menu.map((item) => renderMenuItem(item, currentPath))}</NavigationMenuList>
             </NavigationMenu>
           </div>
-          <div className="logo-icon absolute top-0 left-1/2 -translate-x-1/2 transform">
-            <Link to={"/"} className="bg-primary inline-flex max-w-48 px-5 pt-5 pb-18">
+          <div className="logo-icon absolute top-0 left-1/2 z-100 -translate-x-1/2 transform">
+            <Link to={"/"} className="bg-primary inline-flex max-w-48 px-5 pt-5 pb-12">
               <svg width="130" height="90.39587815222632" viewBox="0 0 367.5 210.10223540642215" class="looka-1j8o68f">
                 <defs id="SvgjsDefs3169"></defs>
                 <g
@@ -107,9 +107,9 @@ export default function Navbar() {
                 </g>
               </svg>
             </Link>
-            <svg className="-m-17" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+            <svg className="absolute bottom-0 w-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
               <path
-                fill="var(--background)"
+                fill="rgba(0, 0, 0, 0.9)"
                 fill-opacity="1"
                 d="M0,224L15,197.3C30,171,60,117,90,85.3C120,53,150,43,180,53.3C210,64,240,96,270,106.7C300,117,330,107,360,101.3C390,96,420,96,450,128C480,160,510,224,540,208C570,192,600,96,630,74.7C660,53,690,107,720,112C750,117,780,75,810,69.3C840,64,870,96,900,133.3C930,171,960,213,990,208C1020,203,1050,149,1080,128C1110,107,1140,117,1170,117.3C1200,117,1230,107,1260,122.7C1290,139,1320,181,1350,181.3C1380,181,1410,139,1425,117.3L1440,96L1440,320L1425,320C1410,320,1380,320,1350,320C1320,320,1290,320,1260,320C1230,320,1200,320,1170,320C1140,320,1110,320,1080,320C1050,320,1020,320,990,320C960,320,930,320,900,320C870,320,840,320,810,320C780,320,750,320,720,320C690,320,660,320,630,320C600,320,570,320,540,320C510,320,480,320,450,320C420,320,390,320,360,320C330,320,300,320,270,320C240,320,210,320,180,320C150,320,120,320,90,320C60,320,30,320,15,320L0,320Z"
               ></path>
