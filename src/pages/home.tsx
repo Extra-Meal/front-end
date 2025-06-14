@@ -1,7 +1,11 @@
+import AboutUs from "@/components/home/aboutus";
+import Hero from "@/components/home/hero.tsx";
+
 function Home() {
   return (
     <div>
-      <h1>Home</h1>
+      <Hero />
+      <AboutUs />
     </div>
   );
 }
