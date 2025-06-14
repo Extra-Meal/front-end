@@ -36,7 +36,7 @@ function Contact() {
     },
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: z.infer<typeof formSchema>) => {
     console.log("Form Data:", data);
     form.reset();
   };

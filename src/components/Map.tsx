@@ -9,7 +9,7 @@ import styles from "./Map.module.css";
 function Map() {
   const { branches, currentBranch } = useBranches();
 
-  const [mapPosition, setMapPosition] = useState([40.7128, 0]);
+  const [mapPosition, setMapPosition] = useState<[number, number]>([40.7128, 0]);
 
   useEffect(
     function () {
@@ -24,7 +24,7 @@ function Map() {
   return (
     <div className={styles.mapContainer}>
       <MapContainer
-        center={mapPosition}
+        center={mapPosition as [number, number]}
         zoom={2}
         scrollWheelZoom={true}
         className={`${styles.map} `}
@@ -54,7 +54,7 @@ function Map() {
   );
 }
 
-function ChangView({ position }) {
+function ChangView({ position }: { position: [number, number] }) {
   const map = useMap();
   const zoomLevel = position[0] === 40.7128 && position[1] === 0 ? 2 : 13;
   map.setView(position, zoomLevel);
