@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useContext, useEffect, useReducer } from "react";
+import { type ReactNode, createContext, useContext, useEffect, useReducer } from "react";
 import { useSearchParams } from "react-router";
 
 type Position = {
@@ -22,7 +22,7 @@ type State = {
 
 type Action = {
   type: "branch/selected" | "branches/removeDeails" | "branches/all";
-  payload: Position;
+  payload?: Position;
 };
 
 const branches: Branch[] = [
@@ -102,7 +102,7 @@ function reducer(state: State, action: Action): State {
   switch (action.type) {
     case "branch/selected": {
       const found = state.branches.find(
-        (branch) => branch.position.lat === action.payload.lat && branch.position.lng === action.payload.lng
+        (branch) => branch.position.lat === action.payload?.lat && branch.position.lng === action.payload.lng
       );
       return { ...state, currentBranch: found ?? null, isDisplayDetails: true };
     }
