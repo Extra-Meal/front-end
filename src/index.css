@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,500&display=swap");
 
 @custom-variant dark (&:is(.dark *));
 
@@ -271,4 +272,110 @@
 .group:hover .before-animation::before {
   left: 50%;
   right: 50%;
+}
+
+#lock:before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  border: 4em solid var(--accent-foreground);
+  width: 12em;
+  height: 23em;
+  left: 59%;
+  margin-left: -9em;
+  border-top-left-radius: 9em;
+  border-top-right-radius: 9em;
+  border-bottom: 0;
+  border-right: transparent 0.6em solid;
+  border-top: 2em solid var(--accent-foreground);
+  transform: rotate(-90deg);
+  z-index: 50;
+  top: -15px;
+
+  @media screen and (max-width: 1100px) {
+    border: 2.3em solid var(--accent-foreground);
+    border-right: transparent 0.6em solid;
+    border-bottom: 0;
+    top: -27px;
+  }
+  @media screen and (max-width: 992px) {
+    left: 60%;
+  }
+  @media screen and (max-width: 767px) {
+    width: 8em;
+    height: 15em;
+    top: -10px;
+    border: 1.8em solid var(--accent-foreground);
+    border-right: transparent 0.6em solid;
+    border-bottom: 0;
+    left: 75%;
+  }
+
+  @media screen and (max-width: 575px) {
+    top: 8px;
+    height: 12em;
+  }
+
+  @media screen and (max-width: 440px) {
+    left: 75%;
+    top: 0px;
+    border: 1.5em solid var(--accent-foreground);
+    border-right: transparent 0.4em solid;
+    border-bottom: 0;
+  }
+
+  @media screen and (max-width: 360px) {
+    width: 6em;
+    height: 8em;
+    top: 25px;
+    border: 1.2em solid var(--accent-foreground);
+    border-right: transparent 0.4em solid;
+    border-bottom: 0;
+    left: 98%;
+  }
+}
+
+#lock {
+  font-size: 8px;
+  position: relative;
+  width: 25em;
+  height: 16em;
+  @media screen and (max-width: 767px) {
+    width: 17em;
+  }
+
+  @media screen and (max-width: 575px) {
+    width: 15em;
+  }
+
+  @media screen and (max-width: 360px) {
+    width: 10em;
+  }
+}
+
+#lock img {
+  @media screen and (max-width: 360px) {
+    top: 0px;
+  }
+}
+
+.deco {
+  @media screen and (max-width: 360px) {
+    top: -50px;
+  }
+}
+
+@keyframes rotate-clockwise {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.rotate-infinite {
+  animation: rotate-clockwise 10s linear infinite;
+  display: inline-block;
+  transform-origin: center center;
 }
