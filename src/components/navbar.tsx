@@ -36,11 +36,11 @@ export default function Navbar() {
   const currentPath = location.pathname;
 
   return (
-    <div className="navbar bg-background shadow-md">
+    <div className="navbar bg-background fixed top-0 right-0 left-0 z-500 shadow-md">
       <div className="container">
         {/* large screen */}
         {/*----- design 1  ---------*/}
-        <nav className="hidden justify-between lg:flex">
+        {/* <nav className="hidden justify-between lg:flex">
           <div className="tabs flex items-center">
             <NavigationMenu>
               <NavigationMenuList>{menu.map((item) => renderMenuItem(item, currentPath))}</NavigationMenuList>
@@ -101,9 +101,9 @@ export default function Navbar() {
                 </g>
               </svg>
             </Link>
-            <svg className="-m-17" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+            <svg className="absolute bottom-0 w-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
               <path
-                fill="var(--background)"
+                fill="rgba(0, 0, 0, 0.9)"
                 fill-opacity="1"
                 d="M0,224L15,197.3C30,171,60,117,90,85.3C120,53,150,43,180,53.3C210,64,240,96,270,106.7C300,117,330,107,360,101.3C390,96,420,96,450,128C480,160,510,224,540,208C570,192,600,96,630,74.7C660,53,690,107,720,112C750,117,780,75,810,69.3C840,64,870,96,900,133.3C930,171,960,213,990,208C1020,203,1050,149,1080,128C1110,107,1140,117,1170,117.3C1200,117,1230,107,1260,122.7C1290,139,1320,181,1350,181.3C1380,181,1410,139,1425,117.3L1440,96L1440,320L1425,320C1410,320,1380,320,1350,320C1320,320,1290,320,1260,320C1230,320,1200,320,1170,320C1140,320,1110,320,1080,320C1050,320,1020,320,990,320C960,320,930,320,900,320C870,320,840,320,810,320C780,320,750,320,720,320C690,320,660,320,630,320C600,320,570,320,540,320C510,320,480,320,450,320C420,320,390,320,360,320C330,320,300,320,270,320C240,320,210,320,180,320C150,320,120,320,90,320C60,320,30,320,15,320L0,320Z"
               ></path>
@@ -119,7 +119,7 @@ export default function Navbar() {
               </Button>
             </Link>
           </div>
-        </nav>
+        </nav> */}
 
         {/*------ design 2--------  */}
         {/* <nav className="hidden justify-between lg:flex ">
@@ -166,32 +166,42 @@ export default function Navbar() {
         </nav> */}
 
         {/*--------- design 3 -------*/}
-        {/* <nav className="hidden justify-between lg:flex ">
+        <nav className="hidden justify-between lg:flex">
           <div className="tabs flex items-center">
             <NavigationMenu>
-              <NavigationMenuList>
-                {menu.map((item) => renderMenuItem(item, currentPath))}
-              </NavigationMenuList>
+              <NavigationMenuList>{menu.map((item) => renderMenuItem(item, currentPath))}</NavigationMenuList>
             </NavigationMenu>
           </div>
-           <div className="logo-icon ">
-            <Link to={"/"} className="max-w-36 ">
-              <svg width="229.00000000000006" height="46.21764852589558" viewBox="0 0 369.89473684210526 74.33905457489806" class="looka-1j8o68f"><defs id="SvgjsDefs6025"></defs><g id="SvgjsG6026" featurekey="HdFLvg-0" transform="matrix(0.38319100296339204,0,0,0.38319100296339204,0.1007716781366893,0)" fill="#af3e3e"><defs xmlns="http://www.w3.org/2000/svg"></defs><g xmlns="http://www.w3.org/2000/svg"><path class="fil0" d="M115 43c2,0 3,-2 3,-5 0,-3 -3,-5 -6,-5 -3,0 -5,2 -5,5 0,3 1,5 3,5 -20,1 -37,10 -50,23 -10,-8 -32,-6 -33,-7 -4,-2 -7,-6 -10,-5 -2,1 -3,0 -4,0 -3,-2 -4,-12 -10,-6 1,3 0,5 -3,5 -2,9 8,4 10,5 1,0 2,1 2,3 1,3 6,4 10,6 11,6 8,16 20,22 1,1 2,2 4,2 -1,1 -1,3 -1,4 -3,-3 -8,-6 -13,-9 -7,-3 -12,-4 -15,-3 -17,15 2,37 25,34 -19,5 -44,-11 -30,-31 -19,19 12,39 30,33l0 1 120 0c3,-28 -8,-55 -32,-69 25,10 43,35 43,64 0,2 0,4 0,5l9 0c1,-3 1,-6 1,-9 15,-33 38,-69 57,-101 3,-28 -62,58 -52,74l-7 13c-2,-6 -4,-12 -7,-18 1,-5 3,-11 5,-16 7,-1 12,-4 15,-12 6,-15 9,-30 13,-45 -6,12 -11,25 -15,38 -1,3 -3,1 -3,-1 5,-13 8,-26 12,-39 -6,13 -11,24 -15,38 -1,2 -3,2 -2,-1 4,-13 8,-25 12,-39 -6,13 -12,25 -16,38 -1,1 -3,2 -2,-1 4,-13 9,-26 12,-39 -7,14 -14,28 -19,43 -3,8 0,13 4,19 -1,4 -3,8 -4,12 -13,-18 -33,-30 -56,-31zm-56 25c-1,1 -2,2 -2,3 -6,-5 -14,-8 -21,-8 8,-1 17,1 23,5zm-17 38l0 1c-1,-1 -2,-2 -5,-1 -2,0 -3,-2 -5,-1 -5,1 -8,0 -12,-1 8,-1 17,3 10,-10 3,2 3,4 4,5 5,0 4,3 6,6 0,0 1,1 2,1zm-5 -2c2,-1 -1,-5 -3,-4 -2,2 1,6 3,4z" fill="#af3e3e"></path><path class="fil0" d="M72 130c2,3 5,6 6,9 1,4 -8,14 -6,19 2,11 -2,11 -7,18 5,2 11,6 16,8 15,-24 43,-38 64,-47 -1,-3 -3,-4 -7,-3 -11,4 -22,8 -33,13 -14,6 -19,3 -19,-5 0,-6 -3,-10 -6,-12l24 0c-2,4 -6,14 -9,19 6,-1 15,-6 22,-8 4,-9 7,-9 6,-11l9 0c-4,1 -11,8 -14,10 5,-2 10,-4 15,-6 3,-2 4,-4 3,-4l56 0c3,0 3,-6 0,-6l-159 0c-3,0 -3,6 0,6l39 0zm46 0l-9 0c0,3 -3,11 -5,14 0,1 1,0 3,-1 3,-4 7,-11 11,-13z" fill="#af3e3e"></path><path class="fil0" d="M82 187l-21 -10 -17 17 31 0 7 -7zm-20 -7c1,0 3,1 3,2 0,1 -1,2 -2,2 -2,0 -3,-1 -3,-2 0,-1 1,-2 2,-2z" fill="#af3e3e"></path></g></g><g id="SvgjsG6027" featurekey="VomJeJ-0" transform="matrix(2.6532381166578745,0,0,2.6532381166578745,109.61208544197541,4.211393087413061)" fill="#af3e3e"><path d="M14.94 9.74 l-5.1 6.1 l-5.06 -6.1 l0 10.26 l-2.14 0 l0 -12.82 l-1.74 -2.1 l2.82 0 l6.1 7.32 l6.18 -7.32 l2.82 0 l-1.74 2.1 l0 12.82 l-2.14 0 l0 -10.26 z M24.099999999999998 14.02 l0 3.8 l9.2 0 l0 2.18 l-11.38 0 l0 -14.92 l10.5 0 l0 2.2 l-8.32 0 l0 4.52 q0.62 -0.36 1.38 -0.48 q0.56 -0.1 1.44 -0.1 l3.26 0 l0 2.22 l-3.26 0 q-0.82 0 -1.44 0.1 q-0.76 0.14 -1.38 0.48 z M41.46 6.66 l-0.82 -1.84 l2.4 0 l7.18 15.18 l-2.44 0 l-0.98 -2.18 l-4.54 0 q-1.28 0 -2.3 0.24 q-0.9 0.22 -1.5 0.58 q-0.54 0.32 -0.72 0.66 l-0.38 0.7 l-2.36 0 z M43.06 15.620000000000001 l2.76 0 l-3.26 -6.3 l-3.3 7.14 q0.44 -0.38 1.34 -0.6 q1.02 -0.24 2.46 -0.24 z M63.480000000000004 20 l-10.46 0 l0 -14.92 l2.18 0 l0 12.74 l8.28 0 l0 2.18 z M68.22 20 l-2.14 0 l0 -14.92 l2.14 0 l0 14.92 z M74.8 14.02 l0 5.98 l-2.18 0 l0 -14.92 l10.5 0 l0 2.2 l-8.32 0 l0 4.52 q0.62 -0.36 1.38 -0.48 q0.56 -0.1 1.44 -0.1 l3.26 0 l0 2.22 l-3.26 0 q-0.82 0 -1.44 0.1 q-0.76 0.14 -1.38 0.48 z M91.46000000000001 11.64 q1.34 -1.4 2.42 -3.12 t1.72 -3.44 l2.5 0 q-1.02 2.38 -2.48 4.56 q-1.32 1.98 -3.08 3.9 l0 6.46 l-2.16 0 l0 -6.46 q-1.76 -1.92 -3.08 -3.9 q-1.46 -2.18 -2.48 -4.56 l2.5 0 q0.64 1.72 1.72 3.44 t2.42 3.12 z"></path></g></svg>
+          <div className="logo-icon">
+            <Link to={"/"} className="max-w-36">
+              <svg
+                width="229.00000000000006"
+                height="46.21764852589558"
+                viewBox="0 0 369.89473684210526 74.33905457489806"
+              >
+                <defs id="SvgjsDefs6025"></defs>
+
+                <g
+                  id="SvgjsG6027"
+                  transform="matrix(2.6532381166578745,0,0,2.6532381166578745,109.61208544197541,4.211393087413061)"
+                  fill="#af3e3e"
+                >
+                  <path d="M14.94 9.74 l-5.1 6.1 l-5.06 -6.1 l0 10.26 l-2.14 0 l0 -12.82 l-1.74 -2.1 l2.82 0 l6.1 7.32 l6.18 -7.32 l2.82 0 l-1.74 2.1 l0 12.82 l-2.14 0 l0 -10.26 z M24.099999999999998 14.02 l0 3.8 l9.2 0 l0 2.18 l-11.38 0 l0 -14.92 l10.5 0 l0 2.2 l-8.32 0 l0 4.52 q0.62 -0.36 1.38 -0.48 q0.56 -0.1 1.44 -0.1 l3.26 0 l0 2.22 l-3.26 0 q-0.82 0 -1.44 0.1 q-0.76 0.14 -1.38 0.48 z M41.46 6.66 l-0.82 -1.84 l2.4 0 l7.18 15.18 l-2.44 0 l-0.98 -2.18 l-4.54 0 q-1.28 0 -2.3 0.24 q-0.9 0.22 -1.5 0.58 q-0.54 0.32 -0.72 0.66 l-0.38 0.7 l-2.36 0 z M43.06 15.620000000000001 l2.76 0 l-3.26 -6.3 l-3.3 7.14 q0.44 -0.38 1.34 -0.6 q1.02 -0.24 2.46 -0.24 z M63.480000000000004 20 l-10.46 0 l0 -14.92 l2.18 0 l0 12.74 l8.28 0 l0 2.18 z M68.22 20 l-2.14 0 l0 -14.92 l2.14 0 l0 14.92 z M74.8 14.02 l0 5.98 l-2.18 0 l0 -14.92 l10.5 0 l0 2.2 l-8.32 0 l0 4.52 q0.62 -0.36 1.38 -0.48 q0.56 -0.1 1.44 -0.1 l3.26 0 l0 2.22 l-3.26 0 q-0.82 0 -1.44 0.1 q-0.76 0.14 -1.38 0.48 z M91.46000000000001 11.64 q1.34 -1.4 2.42 -3.12 t1.72 -3.44 l2.5 0 q-1.02 2.38 -2.48 4.56 q-1.32 1.98 -3.08 3.9 l0 6.46 l-2.16 0 l0 -6.46 q-1.76 -1.92 -3.08 -3.9 q-1.46 -2.18 -2.48 -4.56 l2.5 0 q0.64 1.72 1.72 3.44 t2.42 3.12 z"></path>
+                </g>
+              </svg>
             </Link>
           </div>
           <div className="icons flex items-center gap-4">
             <ThemeToggler />
-            <ShoppingBasket className="text-primary "/>
+            <ShoppingBasket className="text-primary" />
             <Link to="/login">
-              <Button className="relative  group overflow-hidden rounded-3xl px-8 py-2 border-l-3 border-r-3  border-primary bg-transparent text-primary hover:text-white transition-all duration-300">
+              <Button className="group border-primary text-primary relative overflow-hidden rounded-3xl border-r-3 border-l-3 bg-transparent px-8 py-2 transition-all duration-300 hover:text-white">
                 <span className="relative z-10">Login</span>
-                <span className="absolute inset-0 z-0 before-animation"></span>
+                <span className="before-animation absolute inset-0 z-0"></span>
               </Button>
             </Link>
-
           </div>
-          
-        </nav> */}
+        </nav>
 
         {/* mobile  */}
         <div className="block lg:hidden">
