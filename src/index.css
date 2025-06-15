@@ -469,3 +469,7 @@
     transform: skew(-20deg) rotate(180deg) translateX(38%);
   }
 }
+
+.product-item:hover .product-img img {
+  transform: translateY(5px);
+}
