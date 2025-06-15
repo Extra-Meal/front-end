@@ -434,3 +434,38 @@
 .area:hover img {
   transform: scale(1.1);
 }
+
+#parallelogram {
+  height: 80vh;
+  transform: skew(-20deg) rotate(180deg) translateX(25%);
+
+  @media screen and (max-width: 767px) {
+    height: 85vh;
+  }
+  @media screen and (max-width: 712px) {
+    width: 115%;
+    height: 70vh;
+  }
+
+  @media screen and (max-width: 575px) {
+    height: 110vh;
+    width: 115%;
+    transform: skew(-20deg) rotate(180deg) translateX(20%);
+  }
+
+  @media screen and (max-width: 440px) {
+    height: 100vh;
+    transform: skew(-20deg) rotate(180deg) translateX(30%);
+    width: 130%;
+  }
+
+  @media screen and (max-width: 376px) {
+    width: 140%;
+  }
+
+  @media screen and (max-width: 360px) {
+    height: 125vh;
+    width: 130%;
+    transform: skew(-20deg) rotate(180deg) translateX(38%);
+  }
+}
