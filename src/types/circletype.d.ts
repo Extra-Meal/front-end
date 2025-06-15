@@ -1,4 +1,4 @@
-declare module 'circletype' {
+declare module "circletype" {
   export default class CircleType {
     constructor(el: HTMLElement);
     radius(r: number): this;
