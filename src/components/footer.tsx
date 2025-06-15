@@ -1,5 +1,5 @@
 import { FaFacebookF, FaInstagram, FaTiktok, FaTwitter } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,11 +9,10 @@ export default function Footer() {
     <div className="footer pt-[50px] pb-3 shadow-[0_-4px_4px_-2px_rgba(0,0,0,0.1)]">
       <div className="footer-content">
         <div className="logo relative flex justify-center px-10 pb-5">
-          <svg width="196" height="50.50098037021091" viewBox="0 0 228.26005432875453 86" class="looka-1j8o68f">
+          <svg width="196" height="50.50098037021091" viewBox="0 0 228.26005432875453 86">
             <defs id="SvgjsDefs3416"></defs>
             <g
               id="SvgjsG3417"
-              featurekey="nameLeftFeature-0"
               transform="matrix(2.3715414542992743,0,0,2.3715414542992743,-2.1343875350371646,18.569170914014514)"
               fill="var(--primary)"
             >
@@ -21,7 +20,6 @@ export default function Footer() {
             </g>
             <g
               id="SvgjsG3418"
-              featurekey="nameRightFeature-0"
               transform="matrix(2.412868620369486,0,0,2.412868620369486,145.69168892013258,17.74262874315569)"
               fill="var(--foreground)"
             >

@@ -1,42 +1,39 @@
 import { Menu, ShoppingBasket } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router";
 
 import ThemeToggler from "@/components/themeToggler";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Accordion } from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 
+const menu = [
+  { title: "Home", url: "/" },
+  {
+    title: "Menu",
+    url: "/menu",
+  },
+  {
+    title: "Ingredients",
+    url: "/ingredients",
+  },
+  {
+    title: "Categories",
+    url: "/categories",
+  },
+  {
+    title: "Area",
+    url: "/area",
+  },
+];
 export default function Navbar() {
   const currentPath = location.pathname;
-
-  const menu = [
-    { title: "Home", url: "/" },
-    {
-      title: "Menu",
-      url: "/menu",
-    },
-    {
-      title: "Ingredients",
-      url: "/ingredients",
-    },
-    {
-      title: "Categories",
-      url: "/categories",
-    },
-    {
-      title: "Area",
-      url: "/area",
-    },
-  ];
 
   return (
     <div className="navbar bg-background fixed top-0 right-0 left-0 z-500 shadow-md">
@@ -49,13 +46,12 @@ export default function Navbar() {
               <NavigationMenuList>{menu.map((item) => renderMenuItem(item, currentPath))}</NavigationMenuList>
             </NavigationMenu>
           </div>
-          <div className="logo-icon absolute top-0 left-1/2 z-100 -translate-x-1/2 transform">
-            <Link to={"/"} className="bg-primary inline-flex max-w-48 px-5 pt-5 pb-12">
-              <svg width="130" height="90.39587815222632" viewBox="0 0 367.5 210.10223540642215" class="looka-1j8o68f">
+          <div className="logo-icon absolute top-0 left-1/2 -translate-x-1/2 transform">
+            <Link to={"/"} className="bg-primary inline-flex max-w-48 px-5 pt-5 pb-18">
+              <svg width="130" height="90.39587815222632" viewBox="0 0 367.5 210.10223540642215">
                 <defs id="SvgjsDefs3169"></defs>
                 <g
                   id="SvgjsG3170"
-                  featurekey="7KWit6-0"
                   transform="matrix(0.20533595250302697,0,0,0.20533595250302697,131.43399752999048,-2.5666958814626026)"
                   fill="#ffffff"
                 >
@@ -84,14 +80,13 @@ export default function Navbar() {
                     d="M182.42969,108.99805c0,1.93262,1.56689,3.5,3.5,3.5s3.5-1.56738,3.5-3.5c0-6.71973,2.05811-9.91016,4.44141-13.60352,2.60547-4.03906,5.55859-8.61621,5.55859-17.39746s-2.95312-13.3584-5.55859-17.39746c-2.3833-3.69336-4.44141-6.88379-4.44141-13.60352,0-6.71777,2.05811-9.90723,4.44092-13.60059,2.60596-4.03809,5.55908-8.61523,5.55908-17.39551,0-1.93262-1.56689-3.5-3.5-3.5s-3.5,1.56738-3.5,3.5c0,6.71777-2.05811,9.90723-4.44092,13.60059-2.60596,4.03809-5.55908,8.61523-5.55908,17.39551,0,8.78125,2.95312,13.35938,5.55908,17.39844,2.38281,3.69336,4.44092,6.88379,4.44092,13.60254s-2.05811,9.90918-4.44092,13.60254c-2.60596,4.03906-5.55908,8.61719-5.55908,17.39844Z"
                   ></path>
                 </g>
-                <g id="SvgjsG3171" featurekey="textGroupContainer" transform="matrix(1,0,0,1,0,129)" fill="#ffffff">
+                <g id="SvgjsG3171" transform="matrix(1,0,0,1,0,129)" fill="#ffffff">
                   <rect xmlns="http://www.w3.org/2000/svg" y="0" x="0" height="1" width="1" opacity="0"></rect>
                   <rect xmlns="http://www.w3.org/2000/svg" y="69.875" x="0" width="35" height="2"></rect>
                   <rect xmlns="http://www.w3.org/2000/svg" y="69.875" x="332.5" width="35" height="2"></rect>
                 </g>
                 <g
                   id="SvgjsG3172"
-                  featurekey="nameFeature-0"
                   transform="matrix(3.6008231583214014,0,0,3.6008231583214014,5.759258814109483,101.64403347577486)"
                   fill="#ffffff"
                 >
@@ -99,7 +94,6 @@ export default function Navbar() {
                 </g>
                 <g
                   id="SvgjsG3173"
-                  featurekey="sloganFeature-0"
                   transform="matrix(1.1182108217351205,0,0,1.1182108217351205,43.77635804893477,187.51437808706345)"
                   fill="#ffffff"
                 >
@@ -119,7 +113,7 @@ export default function Navbar() {
             <ThemeToggler />
             <ShoppingBasket className="text-primary" />
             <Link to="/login">
-              <Button className="group border-primary text-primary relative overflow-hidden rounded-3xl border-r-3 border-l-3 bg-transparent px-8 py-2 transition-all duration-300 hover:text-white">
+              <Button className="group border-primary text-primary relative overflow-hidden border-r-3 border-l-3 bg-transparent px-8 py-2 transition-all duration-300 hover:text-white">
                 <span className="relative z-10">Login</span>
                 <span className="before-animation absolute inset-0 z-0"></span>
               </Button>
@@ -184,13 +178,11 @@ export default function Navbar() {
                 width="229.00000000000006"
                 height="46.21764852589558"
                 viewBox="0 0 369.89473684210526 74.33905457489806"
-                class="looka-1j8o68f"
               >
                 <defs id="SvgjsDefs6025"></defs>
 
                 <g
                   id="SvgjsG6027"
-                  featurekey="VomJeJ-0"
                   transform="matrix(2.6532381166578745,0,0,2.6532381166578745,109.61208544197541,4.211393087413061)"
                   fill="#af3e3e"
                 >
@@ -216,11 +208,10 @@ export default function Navbar() {
           <div className="flex items-center justify-between gap-3">
             <div className="flex flex-1 items-center gap-3">
               <div className="logo-icon max-w-36">
-                <svg width="129" height="66.99815159858584" viewBox="0 0 350 54.660496642202894" class="looka-1j8o68f">
+                <svg width="129" height="66.99815159858584" viewBox="0 0 350 54.660496642202894">
                   <defs id="SvgjsDefs5501"></defs>
                   <g
                     id="SvgjsG5502"
-                    featurekey="VomJeJ-0"
                     transform="matrix(3.6008231583214014,0,0,3.6008231583214014,-3.2407411858905175,-17.355966524225135)"
                     fill="#af3e3e"
                   >
@@ -243,16 +234,10 @@ export default function Navbar() {
                 <SheetHeader>
                   <SheetTitle>
                     <Link to={"/"} className="max-w-36">
-                      <svg
-                        width="129"
-                        height="66.99815159858584"
-                        viewBox="0 0 350 54.660496642202894"
-                        class="looka-1j8o68f"
-                      >
+                      <svg width="129" height="66.99815159858584" viewBox="0 0 350 54.660496642202894">
                         <defs id="SvgjsDefs5501"></defs>
                         <g
                           id="SvgjsG5502"
-                          featurekey="VomJeJ-0"
                           transform="matrix(3.6008231583214014,0,0,3.6008231583214014,-3.2407411858905175,-17.355966524225135)"
                           fill="#af3e3e"
                         >
@@ -287,7 +272,7 @@ export default function Navbar() {
   );
 }
 
-const renderMenuItem = (item, currentPath) => {
+const renderMenuItem = (item: (typeof menu)[number], currentPath: string) => {
   const isActive = currentPath === item.url;
   return (
     <NavigationMenuItem key={item.title}>
@@ -300,9 +285,9 @@ const renderMenuItem = (item, currentPath) => {
   );
 };
 
-const renderMobileMenuItem = (item) => {
+const renderMobileMenuItem = (item: (typeof menu)[number]) => {
   return (
-    <SheetClose asChild>
+    <SheetClose key={item.title} asChild>
       <Link to={item.url} className="text-md block py-1 font-semibold">
         {item.title}
       </Link>
