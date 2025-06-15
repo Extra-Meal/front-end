@@ -1,8 +1,10 @@
-import { Button } from "../ui/button";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
 import { Badge } from "@/components/ui/badge";
+
+import { Button } from "../ui/button";
 
 interface Meal {
   strMeal: string;
@@ -44,32 +46,38 @@ export default function Meals() {
             Meet the Stars of the Menu
           </h2>
           <div className="meals-box mt-5">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
               {mealsWithTags.map(({ meal, tags }) => (
-                <div key={meal.strMeal} className="meal rounded-2xl border-1 border-primary flex flex-col  overflow-hidden">
-                  <div className="tags flex flex-wrap gap-2 bg-primary  p-3 ">
-                    {tags
-                          ? tags.map((tag) => (
-                              <span key={tag} className="text-white text-xs mr-2">
-                                # {tag}
-                              </span>
-
-                            ))
-                          : <span className="text-xs italic text-white">New Item</span>}
+                <div
+                  key={meal.strMeal}
+                  className="meal border-primary flex flex-col overflow-hidden rounded-2xl border-1"
+                >
+                  <div className="tags bg-primary flex flex-wrap gap-2 p-3">
+                    {tags ? (
+                      tags.map((tag) => (
+                        <span key={tag} className="mr-2 text-xs text-white">
+                          # {tag}
+                        </span>
+                      ))
+                    ) : (
+                      <span className="text-xs text-white italic">New Item</span>
+                    )}
                   </div>
                   <div className="content flex gap-4 p-3">
                     <div className="thumb">
-                        <img src={meal.strMealThumb} alt="" className="w-15 h-15 md:w-20 mdh-20 rounded-full" />
+                      <img src={meal.strMealThumb} alt="" className="mdh-20 h-15 w-15 rounded-full md:w-20" />
                     </div>
-                    <div className="info flex justify-between gap-7 flex-1">
-                        <div className="title flex flex-col gap-1 w-full">
-                            <div className="flex gap-4 items-center "> 
-                                <h3 className="text-foreground font-bold text-xl md:text-2xl">{meal.strMeal}</h3>
-                                <div className="border-foreground my-4 border-t border-dashed flex-grow-1" />
-                                <h3 className="text-primary font-extrabold ">10 LE</h3>
-                            </div>
-                            <p className="text-foreground  text-sm md:text-md">Try this delicious {meal.strCategory} recipe from {meal.strArea}!</p>
+                    <div className="info flex flex-1 justify-between gap-7">
+                      <div className="title flex w-full flex-col gap-1">
+                        <div className="flex items-center gap-4">
+                          <h3 className="text-foreground text-xl font-bold md:text-2xl">{meal.strMeal}</h3>
+                          <div className="border-foreground my-4 flex-grow-1 border-t border-dashed" />
+                          <h3 className="text-primary font-extrabold">10 LE</h3>
                         </div>
+                        <p className="text-foreground md:text-md text-sm">
+                          Try this delicious {meal.strCategory} recipe from {meal.strArea}!
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
