@@ -14,20 +14,11 @@ interface Area {
 
 export default function Areas() {
   const [areas, setAreas] = useState<Area[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    axios
-      .get("https://www.themealdb.com/api/json/v1/1/list.php?a=list")
-      .then((response) => {
-        setAreas(response.data.meals.slice(0, 10));
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        setError(error.message);
-        setIsLoading(false);
-      });
+    axios.get("https://www.themealdb.com/api/json/v1/1/list.php?a=list").then((response) => {
+      setAreas(response.data.meals.slice(0, 10));
+    });
   }, []);
 
   return (
