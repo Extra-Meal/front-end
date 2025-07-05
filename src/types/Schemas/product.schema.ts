@@ -1,4 +1,5 @@
 import { z } from "zod";
+
 import { IngredientSchema } from "./ingredient.schema";
 
 export const productSchema = z.object({
