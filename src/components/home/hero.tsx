@@ -17,7 +17,7 @@ export default function Hero() {
 
   return (
     <div
-      className="relative flex h-screen flex-col items-center justify-center bg-cover bg-no-repeat"
+      className="relative flex h-[calc(100dvh-(var(--spacing)*20))] flex-col items-center justify-center bg-cover bg-no-repeat"
       style={{ backgroundImage: `url(${bg})` }}
     >
       <div
