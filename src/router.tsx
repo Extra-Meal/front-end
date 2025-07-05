@@ -7,6 +7,7 @@ import MainLayout from "./layouts/mainLayout";
 import About from "./pages/about";
 import Contact from "./pages/contact";
 import Home from "./pages/home";
+import MenuPage from "./pages/menu";
 import VerifyEmail from "./pages/verify-email";
 
 export const Router = createBrowserRouter([
@@ -15,6 +16,7 @@ export const Router = createBrowserRouter([
     element: <MainLayout />,
     children: [
       { index: true, element: <Home /> },
+      { path: "menu", element: <MenuPage /> },
       { path: "about", element: <About /> },
       {
         path: "contact",
