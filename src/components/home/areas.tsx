@@ -5,7 +5,7 @@ import { A11y, Autoplay, Navigation, Pagination, Scrollbar } from "swiper/module
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
 
-import img from "../../assets/meal.jfif";
+import AreaCard from "../Areas/areaCard";
 import { Button } from "../ui/button";
 
 interface Area {
@@ -57,12 +57,7 @@ export default function Areas() {
             >
               {areas.map((area) => (
                 <SwiperSlide key={area.strArea} style={{ display: "flex", justifyContent: "center" }}>
-                  <div className="area relative w-fit">
-                    <div className="box relative w-fit overflow-hidden rounded-3xl">
-                      <img src={img} alt="" className="h-70 w-65 rounded-3xl" />
-                    </div>
-                    <span className="caption text-3xl font-bold">{area.strArea} Plates</span>
-                  </div>
+                  <AreaCard area={area} />
                 </SwiperSlide>
               ))}
             </Swiper>
