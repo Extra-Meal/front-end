@@ -1,4 +1,5 @@
 import { Menu, ShoppingBasket } from "lucide-react";
+import { motion, useScroll, useTransform } from "motion/react";
 import { Link } from "react-router";
 
 import ThemeToggler from "@/components/themeToggler";
@@ -34,10 +35,24 @@ const menu = [
 ];
 export default function Navbar() {
   const currentPath = location.pathname;
-
+  const { scrollY } = useScroll();
+  const width = useTransform(scrollY, [50, 200], ["100vw", "60vw"]);
+  const top = useTransform(scrollY, [50, 200], ["0rem", "1rem"]);
+  const backdropBlur = useTransform(scrollY, [50, 200], ["blur(0px)", "blur(10px)"]);
+  const borderRadius = useTransform(scrollY, [50, 200], ["0px", "3.40282e38px"]);
+  const padding = useTransform(scrollY, [50, 200], ["calc(var(--spacing)*4)", "calc(var(--spacing)*2)"]);
   return (
-    <div className="navbar bg-background fixed top-0 right-0 left-0 z-500 shadow-md">
-      <div className="container">
+    <motion.div
+      className="navbar bg-background fixed top-0 right-0 left-0 z-500 m-auto min-w-fit shadow-2xl"
+      style={{
+        width,
+        top,
+        backdropFilter: backdropBlur,
+        WebkitBackdropFilter: backdropBlur,
+        borderRadius,
+      }}
+    >
+      <motion.div className="container" style={{ paddingTop: padding, paddingBottom: padding }}>
         {/* large screen */}
         {/*----- design 1  ---------*/}
         {/* <nav className="hidden justify-between lg:flex">
@@ -167,17 +182,12 @@ export default function Navbar() {
 
         {/*--------- design 3 -------*/}
         <nav className="hidden justify-between lg:flex">
-          <div className="tabs flex items-center">
-            <NavigationMenu>
-              <NavigationMenuList>{menu.map((item) => renderMenuItem(item, currentPath))}</NavigationMenuList>
-            </NavigationMenu>
-          </div>
           <div className="logo-icon">
             <Link to={"/"} className="max-w-36">
               <svg
                 width="229.00000000000006"
                 height="46.21764852589558"
-                viewBox="0 0 369.89473684210526 74.33905457489806"
+                viewBox="100 0 369.89473684210526 74.33905457489806"
               >
                 <defs id="SvgjsDefs6025"></defs>
 
@@ -191,6 +201,12 @@ export default function Navbar() {
               </svg>
             </Link>
           </div>
+          <div className="tabs flex items-center">
+            <NavigationMenu>
+              <NavigationMenuList>{menu.map((item) => renderMenuItem(item, currentPath))}</NavigationMenuList>
+            </NavigationMenu>
+          </div>
+
           <div className="icons flex items-center gap-4">
             <ThemeToggler />
             <ShoppingBasket className="text-primary" />
@@ -267,8 +283,8 @@ export default function Navbar() {
             </Sheet>
           </div>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }
 
