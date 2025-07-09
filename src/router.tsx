@@ -5,6 +5,8 @@ import { BranchesProvider } from "./contexts/BranchesContext";
 import AuthLayout from "./layouts/authLayout";
 import MainLayout from "./layouts/mainLayout";
 import About from "./pages/about";
+import Areas from "./pages/areas";
+import Categories from "./pages/categories";
 import Contact from "./pages/contact";
 import Home from "./pages/home";
 import MenuPage from "./pages/menu";
@@ -26,6 +28,14 @@ export const Router = createBrowserRouter([
           </BranchesProvider>
         ),
         children: [{ path: "branch", element: <BranchDetails /> }],
+      },
+      {
+        path: "categories",
+        element: <Categories />,
+      },
+      {
+        path: "area",
+        element: <Areas />,
       },
     ],
   },
