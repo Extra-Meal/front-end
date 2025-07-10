@@ -1,16 +1,14 @@
-'use client';
+"use client";
 
-import { useControllableState } from '@radix-ui/react-use-controllable-state';
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from '@repo/shadcn-ui/components/ui/collapsible';
-import { ChevronDownIcon } from 'lucide-react';
-import type { ComponentProps } from 'react';
-import { createContext, memo, useContext, useEffect, useState } from 'react';
-import { cn } from '@/lib/utils';
-import { AIResponse } from './response';
+import { useControllableState } from "@radix-ui/react-use-controllable-state";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@repo/shadcn-ui/components/ui/collapsible";
+import { ChevronDownIcon } from "lucide-react";
+import type { ComponentProps } from "react";
+import { createContext, memo, useContext, useEffect, useState } from "react";
+
+import { cn } from "@/lib/utils";
+
+import { AIResponse } from "./response";
 
 type AIReasoningContextValue = {
   isStreaming: boolean;
@@ -24,7 +22,7 @@ const AIReasoningContext = createContext<AIReasoningContextValue | null>(null);
 const useAIReasoning = () => {
   const context = useContext(AIReasoningContext);
   if (!context) {
-    throw new Error('AIReasoning components must be used within AIReasoning');
+    throw new Error("AIReasoning components must be used within AIReasoning");
   }
   return context;
 };
@@ -92,11 +90,9 @@ export const AIReasoning = memo(
     };
 
     return (
-      <AIReasoningContext.Provider
-        value={{ isStreaming, isOpen, setIsOpen, duration }}
-      >
+      <AIReasoningContext.Provider value={{ isStreaming, isOpen, setIsOpen, duration }}>
         <Collapsible
-          className={cn('not-prose mb-4', className)}
+          className={cn("not-prose mb-4", className)}
           onOpenChange={handleOpenChange}
           open={isOpen}
           {...props}
@@ -108,41 +104,21 @@ export const AIReasoning = memo(
   }
 );
 
-export type AIReasoningTriggerProps = ComponentProps<
-  typeof CollapsibleTrigger
-> & {
+export type AIReasoningTriggerProps = ComponentProps<typeof CollapsibleTrigger> & {
   title?: string;
 };
 
 export const AIReasoningTrigger = memo(
-  ({
-    className,
-    title = 'Reasoning',
-    children,
-    ...props
-  }: AIReasoningTriggerProps) => {
+  ({ className, title = "Reasoning", children, ...props }: AIReasoningTriggerProps) => {
     const { isStreaming, isOpen, duration } = useAIReasoning();
 
     return (
-      <CollapsibleTrigger
-        className={cn(
-          'flex items-center gap-2 text-muted-foreground text-sm',
-          className
-        )}
-        {...props}
-      >
+      <CollapsibleTrigger className={cn("text-muted-foreground flex items-center gap-2 text-sm", className)} {...props}>
         {children ?? (
           <>
-            {isStreaming && duration === 0 ? (
-              <p>Thinking...</p>
-            ) : (
-              <p>Thought for {duration} seconds</p>
-            )}
+            {isStreaming && duration === 0 ? <p>Thinking...</p> : <p>Thought for {duration} seconds</p>}
             <ChevronDownIcon
-              className={cn(
-                'size-4 text-muted-foreground transition-transform',
-                isOpen ? 'rotate-180' : 'rotate-0'
-              )}
+              className={cn("text-muted-foreground size-4 transition-transform", isOpen ? "rotate-180" : "rotate-0")}
             />
           </>
         )}
@@ -151,23 +127,16 @@ export const AIReasoningTrigger = memo(
   }
 );
 
-export type AIReasoningContentProps = ComponentProps<
-  typeof CollapsibleContent
-> & {
+export type AIReasoningContentProps = ComponentProps<typeof CollapsibleContent> & {
   children: string;
 };
 
-export const AIReasoningContent = memo(
-  ({ className, children, ...props }: AIReasoningContentProps) => (
-    <CollapsibleContent
-      className={cn('mt-4 text-muted-foreground text-sm', className)}
-      {...props}
-    >
-      <AIResponse className="grid gap-2">{children}</AIResponse>
-    </CollapsibleContent>
-  )
-);
+export const AIReasoningContent = memo(({ className, children, ...props }: AIReasoningContentProps) => (
+  <CollapsibleContent className={cn("text-muted-foreground mt-4 text-sm", className)} {...props}>
+    <AIResponse className="grid gap-2">{children}</AIResponse>
+  </CollapsibleContent>
+));
 
-AIReasoning.displayName = 'AIReasoning';
-AIReasoningTrigger.displayName = 'AIReasoningTrigger';
-AIReasoningContent.displayName = 'AIReasoningContent';
+AIReasoning.displayName = "AIReasoning";
+AIReasoningTrigger.displayName = "AIReasoningTrigger";
+AIReasoningContent.displayName = "AIReasoningContent";

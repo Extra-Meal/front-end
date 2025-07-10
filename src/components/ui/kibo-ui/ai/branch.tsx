@@ -1,10 +1,11 @@
-'use client';
+"use client";
 
-import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
-import type { HTMLAttributes, ReactElement, ReactNode } from 'react';
-import { createContext, useContext, useEffect, useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
+import type { HTMLAttributes, ReactElement, ReactNode } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 type AIBranchContextType = {
   currentBranch: number;
@@ -21,7 +22,7 @@ const useAIBranch = () => {
   const context = useContext(AIBranchContext);
 
   if (!context) {
-    throw new Error('AIBranch components must be used within AIBranch');
+    throw new Error("AIBranch components must be used within AIBranch");
   }
 
   return context;
@@ -32,12 +33,7 @@ export type AIBranchProps = HTMLAttributes<HTMLDivElement> & {
   onBranchChange?: (branchIndex: number) => void;
 };
 
-export const AIBranch = ({
-  defaultBranch = 0,
-  onBranchChange,
-  className,
-  ...props
-}: AIBranchProps) => {
+export const AIBranch = ({ defaultBranch = 0, onBranchChange, className, ...props }: AIBranchProps) => {
   const [currentBranch, setCurrentBranch] = useState(defaultBranch);
   const [branches, setBranches] = useState<ReactElement[]>([]);
 
@@ -47,14 +43,12 @@ export const AIBranch = ({
   };
 
   const goToPrevious = () => {
-    const newBranch =
-      currentBranch > 0 ? currentBranch - 1 : branches.length - 1;
+    const newBranch = currentBranch > 0 ? currentBranch - 1 : branches.length - 1;
     handleBranchChange(newBranch);
   };
 
   const goToNext = () => {
-    const newBranch =
-      currentBranch < branches.length - 1 ? currentBranch + 1 : 0;
+    const newBranch = currentBranch < branches.length - 1 ? currentBranch + 1 : 0;
     handleBranchChange(newBranch);
   };
 
@@ -69,10 +63,7 @@ export const AIBranch = ({
 
   return (
     <AIBranchContext.Provider value={contextValue}>
-      <div
-        className={cn('grid w-full gap-2 [&>div]:pb-0', className)}
-        {...props}
-      />
+      <div className={cn("grid w-full gap-2 [&>div]:pb-0", className)} {...props} />
     </AIBranchContext.Provider>
   );
 };
@@ -93,27 +84,17 @@ export const AIBranchMessages = ({ children }: AIBranchMessagesProps) => {
   }, [childrenArray, branches, setBranches]);
 
   return childrenArray.map((branch, index) => (
-    <div
-      className={cn(
-        'grid gap-2 [&>div]:pb-0',
-        index === currentBranch ? 'block' : 'hidden'
-      )}
-      key={index}
-    >
+    <div className={cn("grid gap-2 [&>div]:pb-0", index === currentBranch ? "block" : "hidden")} key={index}>
       {branch}
     </div>
   ));
 };
 
 export type AIBranchSelectorProps = HTMLAttributes<HTMLDivElement> & {
-  from: 'user' | 'assistant';
+  from: "user" | "assistant";
 };
 
-export const AIBranchSelector = ({
-  className,
-  from,
-  ...props
-}: AIBranchSelectorProps) => {
+export const AIBranchSelector = ({ className, from, ...props }: AIBranchSelectorProps) => {
   const { totalBranches } = useAIBranch();
 
   // Don't render if there's only one branch
@@ -124,8 +105,8 @@ export const AIBranchSelector = ({
   return (
     <div
       className={cn(
-        'flex items-center gap-2 self-end px-10',
-        from === 'assistant' ? 'justify-start' : 'justify-end',
+        "flex items-center gap-2 self-end px-10",
+        from === "assistant" ? "justify-start" : "justify-end",
         className
       )}
       {...props}
@@ -138,19 +119,16 @@ export type AIBranchPreviousProps = {
   children?: ReactNode;
 };
 
-export const AIBranchPrevious = ({
-  className,
-  children,
-}: AIBranchPreviousProps) => {
+export const AIBranchPrevious = ({ className, children }: AIBranchPreviousProps) => {
   const { goToPrevious, totalBranches } = useAIBranch();
 
   return (
     <Button
       aria-label="Previous branch"
       className={cn(
-        'size-7 shrink-0 rounded-full text-muted-foreground transition-colors',
-        'hover:bg-accent hover:text-foreground',
-        'disabled:pointer-events-none disabled:opacity-50',
+        "text-muted-foreground size-7 shrink-0 rounded-full transition-colors",
+        "hover:bg-accent hover:text-foreground",
+        "disabled:pointer-events-none disabled:opacity-50",
         className
       )}
       disabled={totalBranches <= 1}
@@ -176,9 +154,9 @@ export const AIBranchNext = ({ className, children }: AIBranchNextProps) => {
     <Button
       aria-label="Next branch"
       className={cn(
-        'size-7 shrink-0 rounded-full text-muted-foreground transition-colors',
-        'hover:bg-accent hover:text-foreground',
-        'disabled:pointer-events-none disabled:opacity-50',
+        "text-muted-foreground size-7 shrink-0 rounded-full transition-colors",
+        "hover:bg-accent hover:text-foreground",
+        "disabled:pointer-events-none disabled:opacity-50",
         className
       )}
       disabled={totalBranches <= 1}
@@ -200,12 +178,7 @@ export const AIBranchPage = ({ className }: AIBranchPageProps) => {
   const { currentBranch, totalBranches } = useAIBranch();
 
   return (
-    <span
-      className={cn(
-        'font-medium text-muted-foreground text-xs tabular-nums',
-        className
-      )}
-    >
+    <span className={cn("text-muted-foreground text-xs font-medium tabular-nums", className)}>
       {currentBranch + 1} of {totalBranches}
     </span>
   );
