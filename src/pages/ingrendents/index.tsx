@@ -1,6 +1,6 @@
 import IngredientCard from "@/components/ingredientCard";
 import PaginationComponent from "@/components/paginationComponent";
-import { useGetData, useGetDataWithParams } from "@/hooks/useApi";
+import { useGetDataWithParams } from "@/hooks/useApi";
 import type { APISuccess } from "@/types/api.type";
 import type { Ingredient } from "@/types/ingredient.type";
 
