@@ -5,6 +5,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider } from "react-router";
 
+import Chat from "./components/ai/chat.tsx";
 import { Toaster } from "./components/ui/sonner.tsx";
 import { ThemeProvider } from "./contexts/themeContext.tsx";
 import "./index.css";
@@ -16,6 +17,7 @@ createRoot(document.getElementById("root")!).render(
       <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
         <ThemeProvider>
           <RouterProvider router={Router} />
+          <Chat />
           <Toaster position="top-center" richColors />
           {/* React Query Devtools for debugging */}
           <ReactQueryDevtools initialIsOpen={false} />

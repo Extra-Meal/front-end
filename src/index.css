@@ -473,3 +473,21 @@
 .product-item:hover .product-img img {
   transform: translateY(5px);
 }
+
+.custom-scrollbar {
+  width: 300px;
+  height: 200px;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 10px;
+}
+
