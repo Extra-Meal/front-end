@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import { Bot, GlobeIcon, MicIcon, Minus, PlusIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
+import userLogo from "@/assets/2-Ph.png";
+import botLogo from "@/assets/logo.png";
 import {
   AIInput,
   AIInputButton,
@@ -87,20 +89,20 @@ export default function Chat() {
 function BotInput() {
   const { messages, input, handleInputChange, handleSubmit } = useChat({
     api: "http://localhost:3000/api/chat",
+    onError: (error) => {
+      console.error("Chat error:", error?.message || error);
+    },
   });
-  const goToEnd = useRef<HTMLDivElement>(null);
-  const scrollToBottom = () => {
-    if (goToEnd.current) {
-      goToEnd.current.scrollTop = goToEnd.current.scrollHeight;
-    }
-  };
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
+  const bottomRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    if (bottomRef.current) {
+      bottomRef.current.scrollTop = bottomRef.current.scrollHeight;
+    }
+  }, [messages]);
   return (
     <>
-      <div className="flex h-[85%] w-full flex-col justify-between rounded-lg p-2">
+      <div className="flex h-[85%] w-full flex-col justify-between rounded-lg">
         {messages.length === 0 && (
           <>
             <div className="text-primary flex justify-center">
@@ -109,25 +111,19 @@ function BotInput() {
           </>
         )}
         <div
-          ref={goToEnd}
-          id="messages"
-          className={
-            messages.length > 0 ? "custom-scrollbar !w-full overflow-auto rounded-lg p-2" : "!w-full flex-1 p-2"
-          }
+          ref={bottomRef}
+          className={messages.length > 0 ? "custom-scrollbar w-full overflow-auto rounded-lg p-2" : "w-full flex-1 p-2"}
         >
           {messages.map((message) => (
             <AIMessage key={message.id} from={message.role === "user" ? "user" : "assistant"}>
               <AIMessageContent>
                 <AIResponse>{message.content}</AIResponse>
               </AIMessageContent>
-              <AIMessageAvatar
-                src={message.role === "user" ? "/user-avatar.png" : "src/assets/logo.png"}
-                name={message.role}
-              />
+              <AIMessageAvatar src={message.role === "user" ? userLogo : botLogo} name={message.role} />
             </AIMessage>
           ))}
         </div>
-        <div className="flex w-full items-center justify-between rounded-lg">
+        <div className="flex w-full items-center justify-between rounded-lg p-2">
           <AIInput onSubmit={handleSubmit}>
             <AIInputTextarea onChange={handleInputChange} value={input} />
             <AIInputToolbar>
