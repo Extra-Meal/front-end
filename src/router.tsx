@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router";
 import BranchDetails from "./components/BranchDetails";
 import { BranchesProvider } from "./contexts/BranchesContext";
 import AuthLayout from "./layouts/authLayout";
+import DashboardLayout from "./layouts/dashboardLayout";
 import MainLayout from "./layouts/mainLayout";
 import About from "./pages/about";
 import Areas from "./pages/areas";
@@ -59,6 +60,40 @@ export const Router = createBrowserRouter([
       {
         path: "verify/email/:token",
         element: <VerifyEmail />,
+      },
+    ],
+  },
+  {
+    path: "dashboard",
+    element: <DashboardLayout />,
+    children: [
+      {
+        index: true,
+        element: (
+          <>
+            <div>Dashboard Home</div>
+          </>
+        ),
+      },
+      {
+        path: "users",
+        element: <div>Users Management</div>,
+      },
+      {
+        path: "meals",
+        element: <div>Meals Management</div>,
+      },
+      {
+        path: "ingredients",
+        element: <div>Ingredients Management</div>,
+      },
+      {
+        path: "categories",
+        element: <div>Categories Management</div>,
+      },
+      {
+        path: "areas",
+        element: <div>Areas Management</div>,
       },
     ],
   },
