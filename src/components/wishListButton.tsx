@@ -13,15 +13,8 @@ type WishListButtonProps = React.ComponentProps<"button"> &
     children?: React.ReactNode;
     altText?: string;
     productId: string;
-    quantity?: number;
   };
-export default function WishListButton({
-  children,
-  productId,
-  quantity,
-  altText,
-  ...ButtonProps
-}: WishListButtonProps) {
+export default function WishListButton({ children, productId, altText, ...ButtonProps }: WishListButtonProps) {
   const { addProductToWishlist, removeProductFromWishlist, isProductInWishlist, isAdding, isRemoving } = useWishList();
   const isInWishList = isProductInWishlist(productId);
 
