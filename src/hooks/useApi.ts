@@ -140,11 +140,12 @@ export function usePutData<T = any, R = any>(
  * deleteMutation.mutate('/api/resource/1');
  */
 export function useDeleteData<R = any>(
+  endpoint: string,
   options?: Omit<UseMutationOptions<R, APIError, string, [string]>, "mutationKey" | "mutationFn">
 ) {
   return useMutation<R, APIError, string, [string]>({
-    mutationKey: ["delete"], // or pass a key function if needed
-    mutationFn: (endpoint: string) => deleteRequest<R>(endpoint),
+    mutationKey: [endpoint], // or pass a key function if needed
+    mutationFn: (id: string) => deleteRequest<R>(`${endpoint}/${id}`),
     ...options,
   });
 }
