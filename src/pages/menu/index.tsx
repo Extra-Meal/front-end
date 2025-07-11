@@ -1,7 +1,5 @@
 import { useSearchParams } from "react-router-dom";
-import { useGetDataWithParams } from "@/hooks/useApi";
-import type { APISuccess } from "@/types/api.type";
-import type { Meal } from "@/types/meal.type";
+
 import MealCard from "@/components/mealCard";
 import {
   Pagination,
@@ -11,6 +9,9 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { useGetDataWithParams } from "@/hooks/useApi";
+import type { APISuccess } from "@/types/api.type";
+import type { Meal } from "@/types/meal.type";
 
 type Response = {
   meals: Array<Meal>;
@@ -25,7 +26,6 @@ type Response = {
 export default function MenuPage() {
   const [params, setParams] = useSearchParams();
   const page = Number(params.get("page") || 1);
-
 
   const { data, isPending } = useGetDataWithParams<APISuccess<Response>>("/products/kits");
 
@@ -44,7 +44,6 @@ export default function MenuPage() {
 
   return (
     <div className="container space-y-8">
-
       <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-5">
         {meals.map((meal) => (
           <MealCard key={meal._id} meal={meal} />
@@ -62,10 +61,7 @@ export default function MenuPage() {
               const current = index + 1;
               return (
                 <PaginationItem key={current}>
-                  <PaginationLink
-                    isActive={current === page}
-                    onClick={() => goToPage(current)}
-                  >
+                  <PaginationLink isActive={current === page} onClick={() => goToPage(current)}>
                     {current}
                   </PaginationLink>
                 </PaginationItem>
