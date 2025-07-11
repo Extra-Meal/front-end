@@ -17,9 +17,8 @@
 
     /* Linting */
     "strict": true,
-    "noUnusedLocals": false, // disable noUnusedLocals to allow unused imports in test files
-    // disable noUnusedLocals to allow unused imports in test files
-    "noUnusedParameters": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
