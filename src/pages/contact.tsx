@@ -70,10 +70,10 @@ function Contact() {
                 We'd love to hear from you! Whether you have a question, feedback, or just want to say hello, feel free
                 to reach out. You can contact us using the form below, or reach us directly at:
               </p>
-              <a className="hover:text-primary mb-3 block flex items-center gap-2" href="mailto:iti@support.com">
+              <a className="hover:text-primary mb-3 flex items-center gap-2" href="mailto:iti@support.com">
                 <Mail size={18} /> iti@support.com
               </a>
-              <a className="hover:text-primary mb-3 block flex items-center gap-2" href="tel:+202584567890">
+              <a className="hover:text-primary mb-3 flex items-center gap-2" href="tel:+202584567890">
                 <Phone size={18} /> +20 258-456-7890
               </a>
             </div>
