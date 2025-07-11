@@ -5,8 +5,11 @@ import { BranchesProvider } from "./contexts/BranchesContext";
 import AuthLayout from "./layouts/authLayout";
 import MainLayout from "./layouts/mainLayout";
 import About from "./pages/about";
+import Areas from "./pages/areas";
+import Categories from "./pages/categories";
 import Contact from "./pages/contact";
 import Home from "./pages/home";
+import IngredientsPage from "./pages/ingrendents";
 import MenuPage from "./pages/menu";
 import VerifyEmail from "./pages/verify-email";
 
@@ -17,6 +20,7 @@ export const Router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: "menu", element: <MenuPage /> },
+      { path: "ingredients", element: <IngredientsPage /> },
       { path: "about", element: <About /> },
       {
         path: "contact",
@@ -26,6 +30,14 @@ export const Router = createBrowserRouter([
           </BranchesProvider>
         ),
         children: [{ path: "branch", element: <BranchDetails /> }],
+      },
+      {
+        path: "categories",
+        element: <Categories />,
+      },
+      {
+        path: "area",
+        element: <Areas />,
       },
     ],
   },

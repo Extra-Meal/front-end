@@ -14,6 +14,7 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Input } from "@/components/ui/input";
 import { OrSeparator } from "@/components/ui/orSeparator";
 import { usePostData } from "@/hooks/useApi";
+import { useAuth } from "@/hooks/useAuth";
 
 const formSchema = z
   .object({
@@ -49,6 +50,7 @@ const formSchema = z
 
 export default function Register() {
   const navigate = useNavigate();
+  const { setIsAuthenticated } = useAuth();
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -77,6 +79,7 @@ export default function Register() {
       if (token) {
         sessionStorage.setItem("token", token);
       }
+      setIsAuthenticated(true);
       toast.success(data?.message || "Registration successful!");
       navigate("/");
     },

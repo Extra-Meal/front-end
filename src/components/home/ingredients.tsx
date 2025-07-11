@@ -36,7 +36,10 @@ export default function Ingredients() {
           <div className="ingredients-list mt-2 w-full">
             <div className="grid grid-cols-1 gap-7 md:grid-cols-2 lg:grid-cols-3">
               {ingredients.map((ingredient) => (
-                <div className="product-item relative z-10 mt-[120px] mb-[80px] px-[35px] text-center">
+                <div
+                  key={ingredient.strIngredient}
+                  className="product-item relative z-10 mt-[120px] mb-[80px] px-[35px] text-center"
+                >
                   <div className="product-img -mb-[120px] flex -translate-y-[140px] transform items-end justify-center">
                     <Link to={`/ingredients/${ingredient.strIngredient}`}>
                       <img
