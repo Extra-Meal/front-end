@@ -1,6 +1,6 @@
 import { Menu, ShoppingBasket } from "lucide-react";
 import { motion, useScroll, useTransform } from "motion/react";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 
 import ThemeToggler from "@/components/themeToggler";
 import { Accordion } from "@/components/ui/accordion";
@@ -37,7 +37,7 @@ const menu = [
   },
 ];
 export default function Navbar() {
-  const currentPath = location.pathname;
+  const currentPath = useLocation().pathname;
   const { isAuthenticated } = useAuth();
 
   const { scrollY } = useScroll();
@@ -184,6 +184,7 @@ export default function Navbar() {
 
 const renderMenuItem = (item: (typeof menu)[number], currentPath: string) => {
   const isActive = currentPath === item.url;
+  console.log("isActive", isActive, currentPath, item.url);
   return (
     <NavigationMenuItem key={item.title}>
       <NavigationMenuLink asChild className="">
