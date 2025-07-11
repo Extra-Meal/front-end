@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import { toast } from "sonner";
 
 import { usePostData } from "@/hooks/useApi";
+import { useAuth } from "@/hooks/useAuth";
 
 import { Button, buttonVariants } from "./ui/button";
 
@@ -14,6 +15,7 @@ type TButtonProps = {
     asChild?: boolean;
   };
 export default function GoogleAuthButton({ children, ...rest }: TButtonProps) {
+  const { setIsAuthenticated } = useAuth();
   const navigate = useNavigate();
 
   const { isPending, mutateAsync: login } = usePostData("auth/google-login", {
@@ -26,6 +28,7 @@ export default function GoogleAuthButton({ children, ...rest }: TButtonProps) {
       if (token) {
         localStorage.setItem("token", token);
         toast.success(data.message || "Login successful!");
+        setIsAuthenticated(true);
         navigate("/");
       }
     },
