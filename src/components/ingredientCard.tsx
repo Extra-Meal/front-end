@@ -1,8 +1,7 @@
-import { Heart } from "lucide-react";
-
 import type { Ingredient } from "@/types/ingredient.type";
 
 import { Button } from "./ui/button";
+import WishListButton from "./wishListButton";
 
 type IngredientCardProps = {
   ingredient: Ingredient;
@@ -29,9 +28,7 @@ export default function IngredientCard({ ingredient }: IngredientCardProps) {
             </span>
           )}
           <div className="flex items-center gap-2">
-            <Button variant="secondary" className="p-2">
-              <Heart />
-            </Button>
+            <WishListButton productId={ingredient._id} />
             <Button>Add to Cart</Button>
           </div>
         </div>
