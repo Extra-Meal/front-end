@@ -20,7 +20,6 @@ export default function PaginationComponent({ totalPages }: PaginationProps) {
   const isNextPageAvailable = currentPage < (totalPages || 0);
   const isPreviousPageAvailable = currentPage > 1;
   function handlePageChange(page: number) {
-    console.log("Page changed to:", page);
     searchParams.set("page", page.toString());
     setSearchParams(searchParams);
     window.scrollTo({ top: 0, behavior: "smooth" });
