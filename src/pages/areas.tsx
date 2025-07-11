@@ -1,4 +1,3 @@
-import AreaCard from "@/components/Areas/areaCard";
 import HeroSubPage from "@/components/heroSubPage";
 
 function Areas() {
