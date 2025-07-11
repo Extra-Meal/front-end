@@ -42,12 +42,13 @@ export function useGetData<R = any>(
  */
 export function useGetDataWithParams<R = any>(
   endpoint: string,
-  options?: Omit<UseQueryOptions<R, APIError, R, [string, URLSearchParams]>, "queryKey" | "queryFn">
+  options?: Omit<UseQueryOptions<R, APIError, R, [string, Record<string, string>]>, "queryKey" | "queryFn">
 ) {
   const [params] = useSearchParams();
-  return useQuery<R, APIError, R, [string, URLSearchParams]>({
-    queryKey: [endpoint, params],
-    queryFn: () => getRequest<R>(endpoint, { params }),
+  const paramsObject = Object.fromEntries(params.entries());
+  return useQuery<R, APIError, R, [string, Record<string, string>]>({
+    queryKey: [endpoint, paramsObject],
+    queryFn: () => getRequest<R>(endpoint, paramsObject),
     ...options,
   });
 }
@@ -139,11 +140,12 @@ export function usePutData<T = any, R = any>(
  * deleteMutation.mutate('/api/resource/1');
  */
 export function useDeleteData<R = any>(
+  endpoint: string,
   options?: Omit<UseMutationOptions<R, APIError, string, [string]>, "mutationKey" | "mutationFn">
 ) {
   return useMutation<R, APIError, string, [string]>({
-    mutationKey: ["delete"], // or pass a key function if needed
-    mutationFn: (endpoint: string) => deleteRequest<R>(endpoint),
+    mutationKey: [endpoint], // or pass a key function if needed
+    mutationFn: (id: string) => deleteRequest<R>(`${endpoint}/${id}`),
     ...options,
   });
 }
