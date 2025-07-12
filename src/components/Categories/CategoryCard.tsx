@@ -1,4 +1,3 @@
-
 import type { Category } from "@/types/category.type";
 
 function CategoryCard({ category }: { category: Category }) {
