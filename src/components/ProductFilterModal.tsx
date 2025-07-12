@@ -1,6 +1,6 @@
+import { SlidersHorizontal, X } from "lucide-react";
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { X, SlidersHorizontal } from "lucide-react";
 
 const FilterModal = () => {
   const [open, setOpen] = useState(false);
@@ -39,9 +39,7 @@ const FilterModal = () => {
       maxPrice: "",
     });
     const clearedParams = new URLSearchParams(searchParams);
-    ["search", "type", "stock", "minPrice", "maxPrice", "page"].forEach((param) =>
-      clearedParams.delete(param)
-    );
+    ["search", "type", "stock", "minPrice", "maxPrice", "page"].forEach((param) => clearedParams.delete(param));
     setSearchParams(clearedParams);
     setOpen(false);
   };
@@ -49,29 +47,29 @@ const FilterModal = () => {
   return (
     <div className="relative">
       <button
-        className="ml-2 mt-2 text-primary hover:text-accent cursor-pointer"
+        className="text-primary hover:text-accent mt-2 ml-2 cursor-pointer"
         onClick={() => setOpen(true)}
         aria-label="Open filters"
       >
-        <SlidersHorizontal className="w-6 h-6" />
+        <SlidersHorizontal className="h-6 w-6" />
       </button>
 
       {open && (
-        <div className="fixed inset-0 z-50 bg-background/90 text-foreground flex items-center justify-center">
+        <div className="bg-background/90 text-foreground fixed inset-0 z-50 flex items-center justify-center">
           <form
             onSubmit={applyFilters}
-            className="bg-card text-card-foreground p-6 rounded-xl shadow-xl w-[90%] max-w-md relative border border-border"
+            className="bg-card text-card-foreground border-border relative w-[90%] max-w-md rounded-xl border p-6 shadow-xl"
           >
             <button
               type="button"
-              className="absolute top-3 right-3 text-destructive hover:text-destructive-foreground"
+              className="text-destructive hover:text-destructive-foreground absolute top-3 right-3"
               onClick={() => setOpen(false)}
               aria-label="Close filters"
             >
-              <X className="w-5 h-5 cursor-pointer" />
+              <X className="h-5 w-5 cursor-pointer" />
             </button>
 
-            <h2 className="text-lg font-semibold mb-4 text-primary">Filter Meals</h2>
+            <h2 className="text-primary mb-4 text-lg font-semibold">Filter Meals</h2>
 
             <div className="space-y-4">
               <input
@@ -79,14 +77,14 @@ const FilterModal = () => {
                 placeholder="Search by name..."
                 value={formState.search}
                 onChange={handleChange}
-                className="w-full p-2 rounded-md border border-border bg-input text-foreground placeholder:text-muted-foreground"
+                className="border-border bg-input text-foreground placeholder:text-muted-foreground w-full rounded-md border p-2"
               />
 
               <select
                 name="type"
                 value={formState.type}
                 onChange={handleChange}
-                className="w-full p-2 rounded-md border border-border bg-input text-foreground"
+                className="border-border bg-input text-foreground w-full rounded-md border p-2"
               >
                 <option value="">All Types</option>
                 <option value="ingredient">Ingredient</option>
@@ -97,7 +95,7 @@ const FilterModal = () => {
                 name="stock"
                 value={formState.stock}
                 onChange={handleChange}
-                className="w-full p-2 rounded-md border border-border bg-input text-foreground"
+                className="border-border bg-input text-foreground w-full rounded-md border p-2"
               >
                 <option value="">All Stock</option>
                 <option value="in-stock">In Stock</option>
@@ -111,7 +109,7 @@ const FilterModal = () => {
                   placeholder="Min Price"
                   value={formState.minPrice}
                   onChange={handleChange}
-                  className="w-1/2 p-2 rounded-md border border-border bg-input text-foreground placeholder:text-muted-foreground"
+                  className="border-border bg-input text-foreground placeholder:text-muted-foreground w-1/2 rounded-md border p-2"
                 />
                 <input
                   type="number"
@@ -119,7 +117,7 @@ const FilterModal = () => {
                   placeholder="Max Price"
                   value={formState.maxPrice}
                   onChange={handleChange}
-                  className="w-1/2 p-2 rounded-md border border-border bg-input text-foreground placeholder:text-muted-foreground"
+                  className="border-border bg-input text-foreground placeholder:text-muted-foreground w-1/2 rounded-md border p-2"
                 />
               </div>
             </div>
@@ -127,7 +125,7 @@ const FilterModal = () => {
             <div className="mt-6 flex justify-between gap-3">
               <button
                 type="submit"
-                className="cursor-pointer flex-1 bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground font-semibold py-2 rounded-md transition-all"
+                className="bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground flex-1 cursor-pointer rounded-md py-2 font-semibold transition-all"
               >
                 Apply Filter
               </button>
@@ -135,7 +133,7 @@ const FilterModal = () => {
               <button
                 type="button"
                 onClick={clearFilters}
-                className="cursor-pointer flex-1 bg-muted text-muted-foreground hover:bg-destructive hover:text-destructive-foreground font-semibold py-2 rounded-md transition-all"
+                className="bg-muted text-muted-foreground hover:bg-destructive hover:text-destructive-foreground flex-1 cursor-pointer rounded-md py-2 font-semibold transition-all"
               >
                 Clear All
               </button>
