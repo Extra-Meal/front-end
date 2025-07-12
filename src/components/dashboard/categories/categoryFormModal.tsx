@@ -12,7 +12,7 @@ import { categorySchema } from "@/types/Schemas/category.schema";
 import type { Category } from "@/types/category.type";
 
 function CategoryFormModal({ children, category }: { children: React.ReactNode; category?: Category }) {
-  const { mutate: createCategory } = usePostData<Category>("categories");
+  const { mutate: createCategory } = usePostData<Category>("category");
   const { mutate: updateCategory } = usePatchData<Category>(category ? `category/${category._id}` : "");
 
   const [open, setOpen] = useState(false);
@@ -22,6 +22,7 @@ function CategoryFormModal({ children, category }: { children: React.ReactNode; 
   const form = useForm<Category>({
     resolver: zodResolver(categorySchema),
     defaultValues: category || {
+      _id: "",
       name: "",
       description: "",
       thumbnail: "",
@@ -44,7 +45,7 @@ function CategoryFormModal({ children, category }: { children: React.ReactNode; 
     const file = event.target.files?.[0];
     if (file) {
       setImageFile(file);
-      form.setValue("thumbnail", file as any);
+      form.setValue("thumbnail", file );
       const reader = new FileReader();
       reader.onload = (e) => {
         setImagePreviewUrl(e.target?.result as string);
@@ -56,7 +57,7 @@ function CategoryFormModal({ children, category }: { children: React.ReactNode; 
   const removeImage = () => {
     setImageFile(null);
     setImagePreviewUrl(null);
-    form.setValue("thumbnail", null as any);
+    form.setValue("thumbnail", null );
     const input = document.getElementById("image") as HTMLInputElement | null;
     if (input) input.value = "";
   };
