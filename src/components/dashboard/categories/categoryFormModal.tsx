@@ -2,18 +2,26 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Upload, X } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { usePatchData, usePostData } from "@/hooks/useApi";
+import { useGetData, usePatchData, usePostData } from "@/hooks/useApi";
 import { categorySchema } from "@/types/Schemas/category.schema";
 import type { Category } from "@/types/category.type";
 
 function CategoryFormModal({ children, category }: { children: React.ReactNode; category?: Category }) {
   const { mutate: createCategory } = usePostData<Category>("category");
   const { mutate: updateCategory } = usePatchData<Category>(category ? `category/${category._id}` : "");
+  const { data, isLoading, error, isError, refetch } = useGetData<{
+    success: boolean;
+    message: string;
+    data: Category[];
+  }>("http://localhost:3000/api/category");
+  console.log(data);
+  if (isLoading) return <p>Loading...</p>;
+  if (isError) return <p>Error: {error?.data.message}</p>;
 
   const [open, setOpen] = useState(false);
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -31,10 +39,27 @@ function CategoryFormModal({ children, category }: { children: React.ReactNode; 
 
   const onSubmit = async (data: Category) => {
     if (category) {
-      updateCategory(data);
+      updateCategory(data, {
+        onSuccess: () => {
+           toast.success("Category updated successfully!");
+          refetch();
+        },
+        onError: (error: any) => {
+      toast.error(error?.response?.data?.message || "Failed to update category.");
+    },
+      });
     } else {
-      createCategory(data);
+      createCategory(data, {
+        onSuccess: () => {
+           toast.success("Category created successfully!");
+          refetch();
+        },
+        onError: (error: any) => {
+      toast.error(error?.response?.data?.message || "Failed to create category.");
+    },
+      });
     }
+
     form.reset();
     setImageFile(null);
     setImagePreviewUrl(null);
@@ -45,7 +70,7 @@ function CategoryFormModal({ children, category }: { children: React.ReactNode; 
     const file = event.target.files?.[0];
     if (file) {
       setImageFile(file);
-      form.setValue("thumbnail", file );
+      form.setValue("thumbnail", file);
       const reader = new FileReader();
       reader.onload = (e) => {
         setImagePreviewUrl(e.target?.result as string);
@@ -57,7 +82,7 @@ function CategoryFormModal({ children, category }: { children: React.ReactNode; 
   const removeImage = () => {
     setImageFile(null);
     setImagePreviewUrl(null);
-    form.setValue("thumbnail", null );
+    form.setValue("thumbnail", null);
     const input = document.getElementById("image") as HTMLInputElement | null;
     if (input) input.value = "";
   };

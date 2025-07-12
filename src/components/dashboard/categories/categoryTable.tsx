@@ -1,15 +1,35 @@
 import { Edit, Trash2 } from "lucide-react";
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { useDeleteData } from "@/hooks/useApi";
+import { useDeleteData, useGetData } from "@/hooks/useApi";
 import type { Category } from "@/types/category.type";
-
+import { toast } from "sonner";
 import { Button } from "../../ui/button";
 import CategoryFormModal from "./categoryFormModal";
 
-function CategoryTable({ categories }: { categories: Category[] }) {
-  console.log("categories table", categories);
-  const deleteMutation = useDeleteData("http://localhost:3000/api/category");
+function CategoryTable() {
+
+  const { data, isLoading, error, isError, refetch } = useGetData<{
+    success: boolean;
+    message: string;
+    data: Category[];
+  }>("http://localhost:3000/api/category");
+
+
+  const deleteMutation = useDeleteData("http://localhost:3000/api/category", {
+    onSuccess: () => {
+       toast.success("Category deleted successfully!");
+      refetch();
+    },
+    onError: (error: any) => {
+      toast.error(error?.response?.data?.message || "Failed to delete category.");
+    },
+  });
+
+  if (isLoading) return <p>Loading...</p>;
+  if (isError) return <p>Error: {error?.data?.message}</p>;
+
+  const categories = data?.data || [];
 
   return (
     <div className="mx-auto py-6">
@@ -25,7 +45,7 @@ function CategoryTable({ categories }: { categories: Category[] }) {
           </TableHeader>
           <TableBody>
             {categories.map((category) => (
-              <TableRow key={category.name}>
+              <TableRow key={category._id}>
                 <TableCell className="font-medium">
                   <img src={category.thumbnail} alt={category.name} className="h-25 w-25" />
                 </TableCell>
