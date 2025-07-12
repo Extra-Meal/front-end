@@ -1,24 +1,23 @@
 import { Edit, Trash2 } from "lucide-react";
+import { toast } from "sonner";
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useDeleteData, useGetData } from "@/hooks/useApi";
 import type { Category } from "@/types/category.type";
-import { toast } from "sonner";
+
 import { Button } from "../../ui/button";
 import CategoryFormModal from "./categoryFormModal";
 
 function CategoryTable() {
-
   const { data, isLoading, error, isError, refetch } = useGetData<{
     success: boolean;
     message: string;
     data: Category[];
   }>("http://localhost:3000/api/category");
 
-
   const deleteMutation = useDeleteData("http://localhost:3000/api/category", {
     onSuccess: () => {
-       toast.success("Category deleted successfully!");
+      toast.success("Category deleted successfully!");
       refetch();
     },
     onError: (error: any) => {

@@ -3,6 +3,7 @@ import { Upload, X } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -41,22 +42,22 @@ function CategoryFormModal({ children, category }: { children: React.ReactNode; 
     if (category) {
       updateCategory(data, {
         onSuccess: () => {
-           toast.success("Category updated successfully!");
+          toast.success("Category updated successfully!");
           refetch();
         },
         onError: (error: any) => {
-      toast.error(error?.response?.data?.message || "Failed to update category.");
-    },
+          toast.error(error?.response?.data?.message || "Failed to update category.");
+        },
       });
     } else {
       createCategory(data, {
         onSuccess: () => {
-           toast.success("Category created successfully!");
+          toast.success("Category created successfully!");
           refetch();
         },
         onError: (error: any) => {
-      toast.error(error?.response?.data?.message || "Failed to create category.");
-    },
+          toast.error(error?.response?.data?.message || "Failed to create category.");
+        },
       });
     }
 

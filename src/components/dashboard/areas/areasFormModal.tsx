@@ -1,56 +1,32 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { usePatchData, usePostData } from "@/hooks/useApi";
 import { areaSchema } from "@/types/Schemas/area.schema";
 import type { Area } from "@/types/area.type";
-import { toast } from "sonner";
 
-function AreaFormModal({
-  children,
-  area,
-  refetch,
-}: {
-  children: React.ReactNode;
-  area?: Area;
-  refetch?: () => void;
-}) {
-  const { mutate: createArea, isPending: creating } = usePostData<Area>(
-    "http://localhost:3000/api/areas",
-    {
-      onSuccess: () => {
-         toast.success("Area created successfully!");
-        refetch?.();
-      },
-      onError: (error: any) => {
-        toast.error(error?.response?.data?.message || "Failed to create area.");
+function AreaFormModal({ children, area, refetch }: { children: React.ReactNode; area?: Area; refetch?: () => void }) {
+  const { mutate: createArea, isPending: creating } = usePostData<Area>("http://localhost:3000/api/areas", {
+    onSuccess: () => {
+      toast.success("Area created successfully!");
+      refetch?.();
     },
-    }
-  );
+    onError: (error: any) => {
+      toast.error(error?.response?.data?.message || "Failed to create area.");
+    },
+  });
 
   const { mutate: updateArea, isPending: updating } = usePatchData<Area>(
     area ? `http://localhost:3000/api/areas/${area._id}` : "",
     {
       onSuccess: () => {
-        toast.success("Area updated successfully!")
+        toast.success("Area updated successfully!");
         refetch?.();
       },
     }

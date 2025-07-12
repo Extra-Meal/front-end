@@ -12,4 +12,8 @@ export const categorySchema = z.object({
     .min(1, "Description is required"),
 });
 
+export const categorySanitizedSchema = categorySchema.omit({ thumbnail: true }).extend({
+  thumbnail: z.union([z.string().url(), z.instanceof(File), z.null()]),
+});
+
 export const updateCategorySchema = categorySchema.partial();
