@@ -14,6 +14,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { OrSeparator } from "@/components/ui/orSeparator";
 import { usePostData } from "@/hooks/useApi";
+import { useAuth } from "@/hooks/useAuth";
 
 const formSchema = z.object({
   email: z.string().email({
@@ -27,6 +28,7 @@ const formSchema = z.object({
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
+  const { setIsAuthenticated } = useAuth();
   const navigate = useNavigate();
   const { isPending: isLoading, mutateAsync: login } = usePostData("/auth/login", {
     onError: (error) => {
@@ -37,7 +39,7 @@ export default function Login() {
       const { token } = data;
       if (form.getValues("rememberMe")) localStorage.setItem("token", token);
       else sessionStorage.setItem("token", token);
-
+      setIsAuthenticated(true);
       toast.success(data.message || "Login successful!");
       navigate("/");
     },

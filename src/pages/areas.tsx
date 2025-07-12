@@ -1,4 +1,3 @@
-import AreaCard from "@/components/Areas/areaCard";
 import HeroSubPage from "@/components/heroSubPage";
 import { useGetData } from "@/hooks/useApi";
 import type { Area } from "@/types/area.type";

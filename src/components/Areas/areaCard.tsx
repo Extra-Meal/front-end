@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import { getRequest } from "@/lib/api";
 
+
 import img from "../../assets/meal.jfif";
 import type { Area } from "../../types/area.type";
 import type { Meal } from "../../types/meal.type";
@@ -47,6 +48,8 @@ function AreaCard({ area }: { area: Area }) {
 
   if (loading) return <p>Loading...</p>;
 
+
+function AreaCard({ area }: AreaCardProps) {
   return (
     <div className="area relative w-fit">
       <div className="box relative w-fit overflow-hidden rounded-3xl">
