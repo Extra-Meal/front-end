@@ -9,6 +9,7 @@ import About from "./pages/about";
 import Areas from "./pages/areas";
 import Categories from "./pages/categories";
 import Contact from "./pages/contact";
+import UsersDashboard from "./pages/dashboard/UsersDashboard";
 import Home from "./pages/home";
 import IngredientsPage from "./pages/ingrendents";
 import MenuPage from "./pages/menu";
@@ -77,7 +78,7 @@ export const Router = createBrowserRouter([
       },
       {
         path: "users",
-        element: <div>Users Management</div>,
+        element: <UsersDashboard />,
       },
       {
         path: "meals",
