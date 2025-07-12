@@ -8,7 +8,8 @@ import { Button } from "../../ui/button";
 import AreasFormModal from "./areasFormModal";
 
 function AreasTable({ areas }: { areas: Area[] }) {
-  const handleDelete = (id: string) => useDeleteData(`http://localhost:3000/api/areas/${id}`);
+  const deleteMutation = useDeleteData("http://localhost:3000/api/areas");
+
   return (
     <div className="mx-auto py-6">
       <div className="border">
@@ -29,7 +30,12 @@ function AreasTable({ areas }: { areas: Area[] }) {
                       <Edit className="h-4 w-4" />
                     </Button>
                   </AreasFormModal>
-                  <Button variant="destructive" size="sm" onClick={() => handleDelete(area._id)}>
+                  <Button
+                    variant="destructive"
+                    size="sm"
+                    onClick={() => deleteMutation.mutate(area._id)}
+                    disabled={deleteMutation.isPending}
+                  >
                     <Trash2 className="h-4 w-4" />
                   </Button>
                 </TableCell>
