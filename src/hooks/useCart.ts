@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import type { APISuccess } from "@/types/api.type";
 import type { FullCart } from "@/types/cart.type";
 
-import { useDeleteData, useGetData, usePostData } from "./useApi";
+import { useDeleteData, useGetData, usePatchData, usePostData } from "./useApi";
 import { useAuth } from "./useAuth";
 
 export function useCart() {
@@ -18,18 +18,28 @@ export function useCart() {
       queryClient.invalidateQueries({ queryKey: ["/cart"] });
       toast.success("Product added to cart successfully!");
     },
-    onError: () => {
-      toast.error("Failed to add product to cart.");
+    onError: (error) => {
+      toast.error(error.data?.message || "Failed to add product to cart.");
     },
   });
 
-  const { mutate: removeFromCart, isPending: isRemoving } = useDeleteData("/cart/remove", {
+  const { mutate: removeFromCart, isPending: isRemoving } = useDeleteData("/cart", {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/cart"] });
       toast.success("Product removed from cart successfully!");
     },
-    onError: () => {
-      toast.error("Failed to remove product from cart.");
+    onError: (error) => {
+      toast.error(error.data?.message || "Failed to remove product from cart.");
+    },
+  });
+
+  const { mutate: updateCartQuantity, isPending: isUpdatingQuantity } = usePatchData("/cart", {
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/cart"] });
+      toast.success("Cart quantity updated successfully!");
+    },
+    onError: (error) => {
+      toast.error(error.data?.message || "Failed to update cart quantity.");
     },
   });
 
@@ -49,18 +59,29 @@ export function useCart() {
     removeFromCart(productId);
   }
 
+  function updateProductQuantity(productId: string, quantity: number) {
+    if (!isAuthenticated) {
+      toast.error("You must be logged in to update cart items.");
+      return;
+    }
+    updateCartQuantity({ product: productId, quantity });
+  }
+
   function isProductInCart(productId: string) {
     if (!cart) return false;
     return cart?.some((item) => item.product._id === productId);
   }
+
   return {
     cart,
     addProductToCart,
     removeProductFromCart,
+    updateProductQuantity,
     isProductInCart,
     isRemoving,
     isAdding,
     isLoading,
+    isUpdatingQuantity,
     isError,
   };
 }
