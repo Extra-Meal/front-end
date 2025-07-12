@@ -4,13 +4,13 @@ import AreasFormModal from "@/components/dashboard/areas/areasFormModal";
 import AreasTable from "@/components/dashboard/areas/areasTable";
 import { Button } from "@/components/ui/button";
 import { useGetData } from "@/hooks/useApi";
-import type { Areas } from "@/types/Areas.type";
+import type { Area } from "@/types/area.type";
 
 function AreasDashboard() {
   const { data, isLoading, error, isError } = useGetData<{
     success: boolean;
     message: string;
-    data: Areas[];
+    data: Area[];
   }>("http://localhost:3000/api/areas");
   console.log("🚀 ~ file: areasDashboard.tsx:13 ~ AreasDashboard ~ data:", data);
   if (isLoading) return <p>Loading...</p>;

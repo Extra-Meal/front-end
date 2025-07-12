@@ -9,12 +9,12 @@ import About from "./pages/about";
 import Areas from "./pages/areas";
 import Categories from "./pages/categories";
 import Contact from "./pages/contact";
+import AreasDashboard from "./pages/dashboard/areasDashboard";
+import CategoriesDashboard from "./pages/dashboard/categoriesDashboard";
 import Home from "./pages/home";
 import IngredientsPage from "./pages/ingrendents";
 import MenuPage from "./pages/menu";
 import VerifyEmail from "./pages/verify-email";
-import CategoriesDashboard from "./pages/dashboard/categoriesDashboard";
-import AreasDashboard from "./pages/dashboard/areasDashboard";
 
 export const Router = createBrowserRouter([
   {
@@ -91,11 +91,11 @@ export const Router = createBrowserRouter([
       },
       {
         path: "categories",
-        element: <CategoriesDashboard />
+        element: <CategoriesDashboard />,
       },
       {
         path: "areas",
-        element: <AreasDashboard />
+        element: <AreasDashboard />,
       },
     ],
   },

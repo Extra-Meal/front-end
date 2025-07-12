@@ -18,24 +18,23 @@ function AreaFormModal({ children, area }: { children: React.ReactNode; area?: A
   const form = useForm<Area>({
     resolver: zodResolver(areaSchema),
     defaultValues: {
-      _id:""   ,
+      _id: "",
       name: "",
     },
   });
 
-const onSubmit = async (data: Area) => {
-  console.log("SUBMIT DATA", data);
+  const onSubmit = async (data: Area) => {
+    console.log("SUBMIT DATA", data);
 
-  if (area) {
-    updateArea(data);
-  } else {
-    createArea(data);
-  }
+    if (area) {
+      updateArea(data);
+    } else {
+      createArea(data);
+    }
 
-  form.reset();
-  setOpen(false);
-};
-
+    form.reset();
+    setOpen(false);
+  };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
