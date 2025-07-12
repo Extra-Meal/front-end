@@ -474,7 +474,6 @@
   transform: translateY(5px);
 }
 
-
 .custom-scrollbar {
   overflow-y: scroll;
   scrollbar-width: thin;
@@ -546,7 +545,6 @@
   opacity: 1;
   visibility: visible;
   margin-top: 10px;
-
 }
 
 .service-item:hover::after {

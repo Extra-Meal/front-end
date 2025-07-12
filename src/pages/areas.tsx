@@ -1,3 +1,4 @@
+import AreaCard from "@/components/Areas/areaCard";
 import HeroSubPage from "@/components/heroSubPage";
 import { useGetData } from "@/hooks/useApi";
 import type { Area } from "@/types/area.type";
@@ -7,8 +8,7 @@ function Areas() {
     success: boolean;
     message: string;
     data: Area[];
-  }>("http://localhost:3000/api/areas");
-  console.log(data);
+  }>("/areas");
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error: {error?.data.message}</p>;
 
