@@ -1,20 +1,63 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { usePatchData, usePostData } from "@/hooks/useApi";
 import { areaSchema } from "@/types/Schemas/area.schema";
 import type { Area } from "@/types/area.type";
+import { toast } from "sonner";
 
-function AreaFormModal({ children, area }: { children: React.ReactNode; area?: Area }) {
-  const { mutate: createArea } = usePostData<Area>("areas");
-  const { mutate: updateArea } = usePatchData<Area>(`areas/${area?._id}`);
+function AreaFormModal({
+  children,
+  area,
+  refetch,
+}: {
+  children: React.ReactNode;
+  area?: Area;
+  refetch?: () => void;
+}) {
+  const { mutate: createArea, isPending: creating } = usePostData<Area>(
+    "http://localhost:3000/api/areas",
+    {
+      onSuccess: () => {
+         toast.success("Area created successfully!");
+        refetch?.();
+      },
+      onError: (error: any) => {
+        toast.error(error?.response?.data?.message || "Failed to create area.");
+    },
+    }
+  );
+
+  const { mutate: updateArea, isPending: updating } = usePatchData<Area>(
+    area ? `http://localhost:3000/api/areas/${area._id}` : "",
+    {
+      onSuccess: () => {
+        toast.success("Area updated successfully!")
+        refetch?.();
+      },
+    }
+  );
 
   const [open, setOpen] = useState(false);
+
   const form = useForm<Area>({
     resolver: zodResolver(areaSchema),
     defaultValues: {
@@ -22,6 +65,12 @@ function AreaFormModal({ children, area }: { children: React.ReactNode; area?: A
       name: "",
     },
   });
+
+  useEffect(() => {
+    if (area) {
+      form.reset(area);
+    }
+  }, [area, form]);
 
   const onSubmit = async (data: Area) => {
     console.log("SUBMIT DATA", data);
@@ -74,10 +123,10 @@ function AreaFormModal({ children, area }: { children: React.ReactNode; area?: A
               </Button>
               <Button
                 type="submit"
-                disabled={form.formState.isSubmitting}
+                disabled={creating || updating}
                 className="from-primary min-w-[120px] bg-gradient-to-r to-gray-600 text-white transition-colors hover:to-teal-800"
               >
-                {form.formState.isSubmitting ? (
+                {creating || updating ? (
                   <div className="flex items-center gap-2">
                     <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></div>
                     {!area ? "Adding..." : "Updating..."}

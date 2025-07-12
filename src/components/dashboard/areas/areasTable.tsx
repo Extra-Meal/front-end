@@ -1,14 +1,49 @@
 import { Edit, Trash2 } from "lucide-react";
 
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { useDeleteData } from "@/hooks/useApi";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { useDeleteData, useGetData } from "@/hooks/useApi";
 import type { Area } from "@/types/area.type";
-
+import { toast } from "sonner";
 import { Button } from "../../ui/button";
 import AreasFormModal from "./areasFormModal";
 
-function AreasTable({ areas }: { areas: Area[] }) {
-  const deleteMutation = useDeleteData("http://localhost:3000/api/areas");
+function AreasTable() {
+  const {
+    data,
+    isLoading,
+    error,
+    isError,
+    refetch,
+  } = useGetData<{
+    success: boolean;
+    message: string;
+    data: Area[];
+  }>("http://localhost:3000/api/areas");
+
+  const deleteMutation = useDeleteData(
+    "http://localhost:3000/api/areas",
+    {
+      onSuccess: () => {
+         toast.success("Area deleted successfully!");
+        refetch();
+      },
+      onError: (error: any) => {
+      toast.error(error?.response?.data?.message || "Failed to delete area.");
+    },
+    }
+  );
+
+  if (isLoading) return <p>Loading...</p>;
+  if (isError) return <p>Error: {error?.data?.message}</p>;
+
+  const areas = data?.data || [];
 
   return (
     <div className="mx-auto py-6">
@@ -22,8 +57,10 @@ function AreasTable({ areas }: { areas: Area[] }) {
           </TableHeader>
           <TableBody>
             {areas.map((area) => (
-              <TableRow key={area.name}>
-                <TableCell className="font-medium">{area.name}</TableCell>
+              <TableRow key={area._id}>
+                <TableCell className="font-medium">
+                  {area.name}
+                </TableCell>
                 <TableCell className="flex justify-center gap-2">
                   <AreasFormModal area={area}>
                     <Button variant="outline" size="sm">
