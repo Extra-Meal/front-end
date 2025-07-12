@@ -3,9 +3,7 @@ import { z } from "zod";
 export const categorySchema = z.object({
   _id: z.string(),
   name: z.string().min(1, "Name is required"),
-  thumbnail: z
-    .string({ required_error: "Thumbnail is required", invalid_type_error: "Thumbnail must be a string" })
-    .url("Thumbnail must be a valid URL"),
+  thumbnail: z.union([z.string().url("Thumbnail must be a valid URL"), z.instanceof(File), z.null()]),
   description: z
     .string({
       required_error: "Description is required",
