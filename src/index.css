@@ -475,7 +475,6 @@
 }
 
 .custom-scrollbar {
-
   overflow-y: scroll;
   scrollbar-width: thin;
   scrollbar-color: var(--primary) transparent;
