@@ -1,11 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Upload, X } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { usePatchData, usePostData } from "@/hooks/useApi";
 import { areaSchema } from "@/types/Schemas/area.schema";
@@ -13,25 +12,30 @@ import type { Area } from "@/types/area.type";
 
 function AreaFormModal({ children, area }: { children: React.ReactNode; area?: Area }) {
   const { mutate: createArea } = usePostData<Area>("areas");
-  const { mutate: updateArea } = usePatchData<Area>("areas");
+  const { mutate: updateArea } = usePatchData<Area>(`areas/${area?._id}`);
 
   const [open, setOpen] = useState(false);
   const form = useForm<Area>({
     resolver: zodResolver(areaSchema),
     defaultValues: {
+      _id:""   ,
       name: "",
     },
   });
 
-  const onSubmit = async (data: Area) => {
-    if (area) {
-      updateArea(area.id, data);
-    } else {
-      createArea(data);
-    }
-    form.reset();
-    setOpen(false);
-  };
+const onSubmit = async (data: Area) => {
+  console.log("SUBMIT DATA", data);
+
+  if (area) {
+    updateArea(data);
+  } else {
+    createArea(data);
+  }
+
+  form.reset();
+  setOpen(false);
+};
+
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
