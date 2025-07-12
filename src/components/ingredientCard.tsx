@@ -1,7 +1,7 @@
 import { currencyFormatter } from "@/lib/currency";
 import type { Product } from "@/types/product.type";
 
-import { Button } from "./ui/button";
+import CartButton from "./cartButton";
 import WishListButton from "./wishListButton";
 
 type IngredientCardProps = {
@@ -30,7 +30,7 @@ export default function IngredientCard({ product }: IngredientCardProps) {
           </div>
           <div className="flex items-center gap-2">
             <WishListButton productId={product._id} />
-            <Button>Add to Cart</Button>
+            <CartButton productId={product._id}>Add to Cart</CartButton>
           </div>
         </div>
       </div>
