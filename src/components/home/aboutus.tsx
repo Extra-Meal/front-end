@@ -12,7 +12,6 @@ export default function AboutUs() {
 
   useLayoutEffect(() => {
     if (textRef.current) {
-      console.log("CircleType element found:", textRef.current);
       new CircleType(textRef.current).radius(10).dir(1).forceHeight(false);
     }
   }, []);

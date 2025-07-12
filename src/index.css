@@ -474,6 +474,22 @@
   transform: translateY(5px);
 }
 
+
+.custom-scrollbar {
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 10px;
+}
+
 .service-item::before {
   position: absolute;
   content: "";
@@ -502,6 +518,7 @@
   left: 15px;
   right: 15px;
   bottom: 15px;
+
   border: 2px solid var(--primary);
   border-radius: 10px;
   background-color: transparent;
@@ -529,6 +546,7 @@
   opacity: 1;
   visibility: visible;
   margin-top: 10px;
+
 }
 
 .service-item:hover::after {
