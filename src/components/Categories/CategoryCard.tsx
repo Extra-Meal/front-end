@@ -1,4 +1,7 @@
-function CategoryCard({ category }: any) {
+
+import type { Category } from "@/types/category.type";
+
+function CategoryCard({ category }: { category: Category }) {
   return (
     <div>
       <div className="service-item relative overflow-hidden rounded-2xl">
