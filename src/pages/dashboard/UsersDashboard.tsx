@@ -1,9 +1,14 @@
-import { keepPreviousData, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { ShieldUser, Trash2 } from "lucide-react";
-import type { A } from "node_modules/react-router/dist/development/route-data-ByAYLHuM.d.mts";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSearchParams } from "react-router";
 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { useDeleteData, useGetDataWithParams, usePatchData } from "@/hooks/useApi";
 import type { APISuccess } from "@/types/api.type";
 
@@ -27,7 +32,7 @@ type Response = {
 };
 
 export default function UsersDashboard() {
-  const { data, isLoading, isError, isPlaceholderData } = useGetDataWithParams<APISuccess<Response>>("/users");
+  const { data, isLoading, isError } = useGetDataWithParams<APISuccess<Response>>("/users");
   const totalPages = data?.data?.pagination.totalPages || 1;
   const [searchParams, setSearchParams] = useSearchParams();
   const intialPage = Number(searchParams.get("page")) || 1;
@@ -156,27 +161,41 @@ function UserRow({ user }: { user: user }) {
         </span>
       </td>
       <td className="px-6 py-3">
-        <button
-          className="inline-flex cursor-pointer items-center gap-1 rounded-md border border-blue-500 px-2.5 py-1 text-xs font-medium text-blue-600 transition-colors duration-200 hover:bg-blue-500 hover:text-white"
-          title="Make Admin"
-          onClick={() => {
-            updateRole.mutate(
-              { roles: [...user.roles, "admin"] },
-              {
-                onSuccess: (data) => {
-                  console.log("User role updated successfully:", data);
-                  queryClient.invalidateQueries({ queryKey: ["/users"] });
-                },
-                onError: (error) => {
-                  console.error("Error updating user role:", error);
-                },
-              }
-            );
-          }}
-        >
-          <ShieldUser className="h-4 w-4" />
-          Adminify
-        </button>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <button
+              className="inline-flex cursor-pointer items-center gap-1 rounded-md border border-blue-500 px-2.5 py-1 text-xs font-medium text-blue-600 transition-colors duration-200 hover:bg-blue-500 hover:text-white"
+              title="Set Role"
+            >
+              <ShieldUser className="h-4 w-4" />
+              Set Role
+            </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-40">
+            {["user", "admin", "user, admin"].map((roleString) => (
+              <DropdownMenuItem
+                key={roleString}
+                onClick={() => {
+                  const roles = roleString.split(", ").map((r) => r.trim());
+                  updateRole.mutate(
+                    { roles },
+                    {
+                      onSuccess: (data) => {
+                        console.log("User role updated successfully:", data);
+                        queryClient.invalidateQueries({ queryKey: ["/users"] });
+                      },
+                      onError: (error) => {
+                        console.error("Error updating user role:", error);
+                      },
+                    }
+                  );
+                }}
+              >
+                {roleString}
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
       </td>
       <td className="rounded-r-2xl px-6 py-3">
         <button
