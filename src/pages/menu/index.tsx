@@ -34,7 +34,7 @@ export default function MenuPage() {
 
       <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-5">
         {products.map((product) => (
-          <MealCard key={product._id} meal={product.meal!} />
+          <MealCard key={product._id} product={product} />
         ))}
       </div>
 
