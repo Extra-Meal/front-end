@@ -10,11 +10,11 @@ type IngredientCardProps = {
 export default function IngredientCard({ product }: IngredientCardProps) {
   const ingredient = product.ingredient!;
   return (
-    <div className="bg-accent/20 relative overflow-clip rounded-2xl pt-40 shadow-2xl">
+    <div className="bg-accent/10 relative overflow-clip rounded-2xl pt-40 shadow-2xl">
       <img
         src={`https://www.themealdb.com/images/ingredients/${ingredient.name}.png`}
         alt={ingredient.name}
-        className="absolute inset-0 -z-20 h-full w-full rounded-lg object-cover"
+        className="absolute inset-2 -z-20 h-full w-full rounded-lg object-cover"
       />
       <div className="relative flex h-full flex-col gap-4 p-4">
         <div className="bg-background/90 absolute inset-0 -z-10 h-full w-full rounded-lg mask-t-from-28" />
