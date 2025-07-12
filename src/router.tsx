@@ -11,6 +11,7 @@ import Categories from "./pages/categories";
 import Contact from "./pages/contact";
 import Home from "./pages/home";
 import IngredientsPage from "./pages/ingrendents";
+import MealPage from "./pages/meal";
 import MenuPage from "./pages/menu";
 import VerifyEmail from "./pages/verify-email";
 import WishList from "./pages/wishlsit";
@@ -22,6 +23,7 @@ export const Router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: "menu", element: <MenuPage /> },
+      { path: "menu/:mealId", element: <MealPage /> },
       { path: "ingredients", element: <IngredientsPage /> },
       { path: "about", element: <About /> },
       {
