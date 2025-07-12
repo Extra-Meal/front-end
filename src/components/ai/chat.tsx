@@ -102,7 +102,7 @@ function BotInput() {
   }, [messages]);
   return (
     <>
-      <div className="flex h-[85%] w-[100%] flex-col items-center justify-between rounded-lg ">
+      <div className="flex h-[85%] w-[100%] flex-col items-center justify-between rounded-lg">
         {messages.length === 0 && (
           <>
             <div className="text-primary flex justify-center">
