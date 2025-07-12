@@ -513,10 +513,11 @@
 .service-item::after {
   position: absolute;
   content: "";
-  top: 17px;
-  left: 18px;
-  right: 17px;
-  bottom: 17px;
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+
   border: 2px solid var(--primary);
   border-radius: 10px;
   background-color: transparent;
@@ -543,7 +544,7 @@
 .service-item:hover .content p {
   opacity: 1;
   visibility: visible;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .service-item:hover::after {
