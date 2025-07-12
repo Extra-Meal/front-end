@@ -33,7 +33,7 @@ type Response = {
 };
 
 export default function UsersDashboard() {
-  const { data, isLoading, isError } = useGetDataWithParams<APISuccess<Response>>("/users");
+  const { data, isLoading } = useGetDataWithParams<APISuccess<Response>>("/users");
   const totalPages = data?.data?.pagination.totalPages || 1;
   const [searchParams, setSearchParams] = useSearchParams();
   const intialPage = Number(searchParams.get("page")) || 1;
