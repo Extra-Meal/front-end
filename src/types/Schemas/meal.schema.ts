@@ -3,7 +3,6 @@ import { z } from "zod";
 import { areaSchema } from "./area.schema";
 import { categorySchema } from "./category.schema";
 import { IngredientSchema } from "./ingredient.schema";
-import { productSchema } from "./product.schema";
 
 export const mealSchema = z.object({
   _id: z.string(),
@@ -23,5 +22,5 @@ export const mealSchema = z.object({
       })
     )
     .default([]),
-  kitProduct: productSchema,
+  kitProduct: z.string().optional(),
 });
