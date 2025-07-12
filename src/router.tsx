@@ -13,6 +13,7 @@ import Home from "./pages/home";
 import IngredientsPage from "./pages/ingrendents";
 import MenuPage from "./pages/menu";
 import VerifyEmail from "./pages/verify-email";
+import WishList from "./pages/wishlsit";
 
 export const Router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ export const Router = createBrowserRouter([
       {
         path: "area",
         element: <Areas />,
+      },
+      {
+        path: "wishlist",
+        element: <WishList />,
       },
     ],
   },
