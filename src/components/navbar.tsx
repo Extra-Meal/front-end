@@ -1,4 +1,4 @@
-import { Menu, ShoppingBasket } from "lucide-react";
+import { Menu } from "lucide-react";
 import { motion, useScroll, useTransform } from "motion/react";
 import { Link, useLocation } from "react-router";
 
@@ -15,7 +15,9 @@ import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger 
 import { useAuth } from "@/hooks/useAuth";
 import { cn } from "@/lib/utils";
 
+import Cart from "./cart";
 import LogoutButton from "./logoutButton";
+import UserPopover from "./userPopover";
 
 const menu = [
   { title: "Home", url: "/" },
@@ -89,8 +91,8 @@ export default function Navbar() {
             <ThemeToggler />
             {isAuthenticated ? (
               <>
-                <ShoppingBasket className="text-primary" />
-                <LogoutButton />
+                <Cart />
+                <UserPopover />
               </>
             ) : (
               <Button
@@ -124,7 +126,7 @@ export default function Navbar() {
               </div>
               <div className="icons flex-1" />
               <ThemeToggler />
-              {isAuthenticated && <ShoppingBasket className="text-primary" />}
+              {isAuthenticated && <Cart />}
             </div>
 
             <Sheet>
@@ -133,7 +135,7 @@ export default function Navbar() {
                   <Menu className="size-4" />
                 </Button>
               </SheetTrigger>
-              <SheetContent className="z-100 overflow-y-auto">
+              <SheetContent className="z-[10000] overflow-y-auto">
                 <SheetHeader>
                   <SheetTitle>
                     <Link to={"/"} className="max-w-36">
