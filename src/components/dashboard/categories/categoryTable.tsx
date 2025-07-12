@@ -9,7 +9,8 @@ import CategoryFormModal from "./categoryFormModal";
 
 function CategoryTable({ categories }: { categories: Category[] }) {
   console.log("categories table", categories);
-  const handleDelete = (id: string) => useDeleteData(`http://localhost:3000/api/category/${id}`);
+  const deleteMutation = useDeleteData("http://localhost:3000/api/category");
+
   return (
     <div className="mx-auto py-6">
       <div className="border">
@@ -38,7 +39,12 @@ function CategoryTable({ categories }: { categories: Category[] }) {
                       <Edit className="h-4 w-4" />
                     </Button>
                   </CategoryFormModal>
-                  <Button variant="destructive" size="sm" onClick={() => handleDelete(category._id)}>
+                  <Button
+                    variant="destructive"
+                    size="sm"
+                    onClick={() => deleteMutation.mutate(category._id)}
+                    disabled={deleteMutation.isPending}
+                  >
                     <Trash2 className="h-4 w-4" />
                   </Button>
                 </TableCell>
