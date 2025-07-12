@@ -29,7 +29,7 @@ function CategoriesDashboard() {
           </CategoryFormModal>
         </div>
       </div>
-      <CategoryTable categories={data?.data} />
+      <CategoryTable categories={data?.data || []} />
     </main>
   );
 }

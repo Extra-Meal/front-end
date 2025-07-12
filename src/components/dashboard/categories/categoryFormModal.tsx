@@ -1,11 +1,11 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Upload, X } from "lucide-react";
-import { useState } from "react";
+import {  useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { usePatchData, usePostData } from "@/hooks/useApi";
 import { categorySchema } from "@/types/Schemas/category.schema";
@@ -13,11 +13,12 @@ import type { Category } from "@/types/category.type";
 
 function CategoryFormModal({ children, category }: { children: React.ReactNode; category?: Category }) {
   const { mutate: createCategory } = usePostData<Category>("categories");
-  const { mutate: updateCategory } = usePatchData<Category>("categories");
+  const { mutate: updateCategory } = usePatchData<Category>(category ? `category/${category._id}` : "");
 
   const [open, setOpen] = useState(false);
-  const [imageFile, setImageFile] = useState(null);
-  const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
+
   const form = useForm<Category>({
     resolver: zodResolver(categorySchema),
     defaultValues: category || {
@@ -26,24 +27,27 @@ function CategoryFormModal({ children, category }: { children: React.ReactNode; 
       thumbnail: "",
     },
   });
+
   const onSubmit = async (data: Category) => {
     if (category) {
-      updateCategory(category.id, data);
+      updateCategory(data);
     } else {
       createCategory(data);
     }
     form.reset();
+    setImageFile(null);
+    setImagePreviewUrl(null);
     setOpen(false);
   };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files[0];
+    const file = event.target.files?.[0];
     if (file) {
       setImageFile(file);
-      form.setValue("thumbnail", file);
+      form.setValue("thumbnail", file as any);
       const reader = new FileReader();
       reader.onload = (e) => {
-        setImagePreviewUrl(e.target.result);
+        setImagePreviewUrl(e.target?.result as string);
       };
       reader.readAsDataURL(file);
     }
@@ -52,8 +56,9 @@ function CategoryFormModal({ children, category }: { children: React.ReactNode; 
   const removeImage = () => {
     setImageFile(null);
     setImagePreviewUrl(null);
-    form.setValue("thumbnail", null);
-    document.getElementById("image").value = "";
+    form.setValue("thumbnail", null as any);
+    const input = document.getElementById("image") as HTMLInputElement | null;
+    if (input) input.value = "";
   };
 
   return (
@@ -61,7 +66,7 @@ function CategoryFormModal({ children, category }: { children: React.ReactNode; 
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="max-w-2xl">
         <DialogHeader>
-          <DialogTitle className="from-primary bg-gradient-to-r to-teal-600 bg-clip-text text-2xl font-bold text-transparent">
+          <DialogTitle className="from-primary bg-gradient-to-r to-gray-600 bg-clip-text text-2xl font-bold text-transparent">
             {category ? "Edit" : "Add New"} Category
           </DialogTitle>
         </DialogHeader>
@@ -89,7 +94,7 @@ function CategoryFormModal({ children, category }: { children: React.ReactNode; 
                   <FormItem>
                     <FormLabel>Description</FormLabel>
                     <FormControl>
-                      <Input placeholder="auto-generated from name" className="bg-gray-50" readOnly {...field} />
+                      <Input placeholder="Enter description" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
