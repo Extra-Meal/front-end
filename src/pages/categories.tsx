@@ -8,7 +8,7 @@ function Categories() {
     success: boolean;
     message: string;
     data: Category[];
-  }>("http://localhost:3000/api/category");
+  }>("/category");
   console.log(data);
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error: {error?.data.message}</p>;
