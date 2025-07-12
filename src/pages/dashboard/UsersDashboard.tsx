@@ -9,6 +9,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
 import { useDeleteData, useGetDataWithParams, usePatchData } from "@/hooks/useApi";
 import type { APISuccess } from "@/types/api.type";
 
@@ -37,6 +38,7 @@ export default function UsersDashboard() {
   const [searchParams, setSearchParams] = useSearchParams();
   const intialPage = Number(searchParams.get("page")) || 1;
   const [page, setPage] = useState(intialPage);
+  const [search, setSearch] = useState("");
 
   if (isLoading) {
     return (
@@ -52,11 +54,21 @@ export default function UsersDashboard() {
   return (
     <>
       <div className="w-full">
-        <div className="mb-5">
-          <h1 className="text-foreground text-2xl font-bold">Users Dashboard</h1>
-          <p className="text-foreground mt-2">{data?.data?.users.length} users found</p>
+        <div className="mb-5 flex items-center justify-between">
+          <div>
+            <h1 className="text-foreground text-2xl font-bold">Users Dashboard</h1>
+            <p className="text-foreground mt-2">{data?.data?.users.length} users found</p>
+          </div>
+          <div className="mt-2 w-[300px] max-w-lg">
+            <Input
+              type="text"
+              placeholder="Search by name or email or id..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
         </div>
-        <UsersTable users={data?.data?.users} />
+        <UsersTable users={data?.data?.users} search={search} />
         <div className="mt-6 flex items-center justify-center gap-4">
           <button
             disabled={page === 1}
@@ -92,7 +104,16 @@ export default function UsersDashboard() {
     </>
   );
 }
-function UsersTable({ users }: { users?: Array<user> }) {
+function UsersTable({ users, search }: { users?: Array<user>; search: string }) {
+  const filteredUsers = users?.filter((u) => {
+    const query = search.toLowerCase();
+    return (
+      u.name.toLowerCase().includes(query) ||
+      u.email.toLowerCase().includes(query) ||
+      u._id.toLowerCase().includes(query)
+    );
+  });
+
   return (
     <div className="min-h-[69vh]">
       <table className="min-w-full border-separate border-spacing-y-4 text-center text-[14px]">
@@ -108,8 +129,8 @@ function UsersTable({ users }: { users?: Array<user> }) {
           </tr>
         </thead>
         <tbody>
-          {users?.length ? (
-            users.map((user) => <UserRow key={user._id} user={user} />)
+          {filteredUsers?.length ? (
+            filteredUsers.map((user) => <UserRow key={user._id} user={user} />)
           ) : (
             <tr>
               <td colSpan={7} className="text-primary px-6 py-3 text-sm">
