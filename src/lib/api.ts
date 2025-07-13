@@ -112,7 +112,7 @@ export async function getRequest<R = any>(
  */
 export async function postRequest<T = any, R = any>(
   path: string,
-  data: Pick<AxiosRequestConfig<T>, "data"> = {},
+  data: T,
   options: Omit<AxiosRequestConfig<T>, "data"> = {}
 ) {
   try {
@@ -135,7 +135,7 @@ export async function postRequest<T = any, R = any>(
  */
 export async function putRequest<T = any, R = any>(
   path: string,
-  data: Pick<AxiosRequestConfig<T>, "data"> = {},
+  data: T,
   options: Omit<AxiosRequestConfig<T>, "data"> = {}
 ) {
   try {
@@ -180,7 +180,7 @@ export async function deleteRequest<R = any>(path: string, options: Omit<AxiosRe
  */
 export async function patchRequest<T = any, R = any>(
   path: string,
-  data: Pick<AxiosRequestConfig<T>, "data"> = {},
+  data: T,
   options: Omit<AxiosRequestConfig<T>, "data"> = {}
 ) {
   try {
