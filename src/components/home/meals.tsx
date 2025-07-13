@@ -84,7 +84,7 @@ export default function Meals() {
           </div>
           <div>
             <Button>
-              <Link to="/meals">Order Now</Link>
+              <Link to="/menu">Order Now</Link>
             </Button>
           </div>
         </div>
