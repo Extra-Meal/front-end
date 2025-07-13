@@ -9,36 +9,39 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useGetData, usePatchData, usePostData } from "@/hooks/useApi";
-import { categorySchema } from "@/types/Schemas/category.schema";
-import type { Category } from "@/types/category.type";
+import { categorySanitizedSchema } from "@/types/Schemas/category.schema";
+import type { Category, SanitizedCategory } from "@/types/category.type";
 
-function CategoryFormModal({ children, category }: { children: React.ReactNode; category?: Category }) {
-  const { mutate: createCategory } = usePostData<Category>("category");
-  const { mutate: updateCategory } = usePatchData<Category>(category ? `category/${category._id}` : "");
+type CategoryFormModalProps = {
+  children: React.ReactNode;
+  category?: Category;
+};
+function CategoryFormModal({ children, category }: CategoryFormModalProps) {
+  const { mutate: createCategory } = usePostData<SanitizedCategory>("category");
+  const { mutate: updateCategory } = usePatchData<SanitizedCategory>(category ? `category/${category._id}` : "");
   const { data, isLoading, error, isError, refetch } = useGetData<{
     success: boolean;
     message: string;
     data: Category[];
-  }>("http://localhost:3000/api/category");
+  }>("/category");
   console.log(data);
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error: {error?.data.message}</p>;
 
   const [open, setOpen] = useState(false);
-  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [, setImageFile] = useState<File | null>(null);
   const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
 
-  const form = useForm<Category>({
-    resolver: zodResolver(categorySchema),
+  const form = useForm<SanitizedCategory>({
+    resolver: zodResolver(categorySanitizedSchema),
     defaultValues: category || {
-      _id: "",
       name: "",
       description: "",
       thumbnail: "",
     },
   });
 
-  const onSubmit = async (data: Category) => {
+  const onSubmit = async (data: SanitizedCategory) => {
     if (category) {
       updateCategory(data, {
         onSuccess: () => {
