@@ -11,8 +11,12 @@ import Categories from "./pages/categories";
 import Contact from "./pages/contact";
 import IngredientsDashboard from "./pages/dashboard/IngredientsDashboard";
 import UsersDashboard from "./pages/dashboard/UsersDashboard";
+import AreasDashboard from "./pages/dashboard/areasDashboard";
+import CategoriesDashboard from "./pages/dashboard/categoriesDashboard";
 import Home from "./pages/home";
+import IngredientPage from "./pages/ingredient";
 import IngredientsPage from "./pages/ingrendents";
+import MealPage from "./pages/meal";
 import MenuPage from "./pages/menu";
 import VerifyEmail from "./pages/verify-email";
 import WishList from "./pages/wishlsit";
@@ -24,7 +28,9 @@ export const Router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: "menu", element: <MenuPage /> },
+      { path: "menu/:mealId", element: <MealPage /> },
       { path: "ingredients", element: <IngredientsPage /> },
+      { path: "ingredients/:ingredientId", element: <IngredientPage /> },
       { path: "about", element: <About /> },
       {
         path: "contact",
@@ -96,11 +102,11 @@ export const Router = createBrowserRouter([
       },
       {
         path: "categories",
-        element: <div>Categories Management</div>,
+        element: <CategoriesDashboard />,
       },
       {
         path: "areas",
-        element: <div>Areas Management</div>,
+        element: <AreasDashboard />,
       },
     ],
   },
