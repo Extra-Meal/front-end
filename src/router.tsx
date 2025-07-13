@@ -9,6 +9,8 @@ import About from "./pages/about";
 import Areas from "./pages/areas";
 import Categories from "./pages/categories";
 import Contact from "./pages/contact";
+import AreasDashboard from "./pages/dashboard/areasDashboard";
+import CategoriesDashboard from "./pages/dashboard/categoriesDashboard";
 import UsersDashboard from "./pages/dashboard/UsersDashboard";
 import Home from "./pages/home";
 import IngredientPage from "./pages/ingredient";
@@ -99,11 +101,11 @@ export const Router = createBrowserRouter([
       },
       {
         path: "categories",
-        element: <div>Categories Management</div>,
+        element: <CategoriesDashboard />,
       },
       {
         path: "areas",
-        element: <div>Areas Management</div>,
+        element: <AreasDashboard />,
       },
     ],
   },
