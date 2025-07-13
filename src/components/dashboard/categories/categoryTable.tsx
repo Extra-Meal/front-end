@@ -13,9 +13,9 @@ function CategoryTable() {
     success: boolean;
     message: string;
     data: Category[];
-  }>("http://localhost:3000/api/category");
+  }>("/category");
 
-  const deleteMutation = useDeleteData("http://localhost:3000/api/category", {
+  const deleteMutation = useDeleteData("/category", {
     onSuccess: () => {
       toast.success("Category deleted successfully!");
       refetch();
@@ -32,46 +32,44 @@ function CategoryTable() {
 
   return (
     <div className="mx-auto py-6">
-      <div className="border">
-        <Table>
-          <TableHeader className="bg-primary text-primary-foreground rounded-md">
-            <TableRow>
-              <TableHead>Image</TableHead>
-              <TableHead>Category Name</TableHead>
-              <TableHead className="w-100">Description</TableHead>
-              <TableHead className="text-center">Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {categories.map((category) => (
-              <TableRow key={category._id}>
-                <TableCell className="font-medium">
-                  <img src={category.thumbnail} alt={category.name} className="h-25 w-25" />
-                </TableCell>
-                <TableCell className="font-medium">{category.name}</TableCell>
-                <TableCell className="w-[200px] font-medium whitespace-normal">
-                  {category.description.split(".")[0].trim()}.
-                </TableCell>
-                <TableCell className="flex justify-center gap-2">
-                  <CategoryFormModal category={category}>
-                    <Button variant="outline" size="sm">
-                      <Edit className="h-4 w-4" />
-                    </Button>
-                  </CategoryFormModal>
-                  <Button
-                    variant="destructive"
-                    size="sm"
-                    onClick={() => deleteMutation.mutate(category._id)}
-                    disabled={deleteMutation.isPending}
-                  >
-                    <Trash2 className="h-4 w-4" />
+      <Table>
+        <TableHeader className="bg-primary rounded-md">
+          <TableRow>
+            <TableHead className="text-primary-foreground">Image</TableHead>
+            <TableHead className="text-primary-foreground">Category Name</TableHead>
+            <TableHead className="text-primary-foreground w-100">Description</TableHead>
+            <TableHead className="text-primary-foreground text-center">Actions</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {categories.map((category) => (
+            <TableRow key={category._id}>
+              <TableCell className="font-medium">
+                <img src={category.thumbnail} alt={category.name} className="h-25 w-25" />
+              </TableCell>
+              <TableCell className="font-medium">{category.name}</TableCell>
+              <TableCell className="w-[200px] font-medium whitespace-normal">
+                {category.description.split(".")[0].trim()}.
+              </TableCell>
+              <TableCell className="flex justify-center gap-2">
+                <CategoryFormModal category={category}>
+                  <Button variant="outline" size="sm">
+                    <Edit className="h-4 w-4" />
                   </Button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
+                </CategoryFormModal>
+                <Button
+                  variant="destructive"
+                  size="sm"
+                  onClick={() => deleteMutation.mutate(category._id)}
+                  disabled={deleteMutation.isPending}
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
     </div>
   );
 }
