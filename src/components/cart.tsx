@@ -46,9 +46,11 @@ export default function Cart() {
         </ScrollArea>
 
         <DrawerFooter>
-          <Button asChild size={"lg"}>
-            <Link to="/checkout">Checkout</Link>
-          </Button>
+          {cart && cart.length > 0 && (
+            <Button asChild size={"lg"}>
+              <Link to="/checkout">Proceed to Checkout</Link>
+            </Button>
+          )}
         </DrawerFooter>
       </DrawerContent>
     </Drawer>
