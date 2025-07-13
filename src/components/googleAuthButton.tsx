@@ -42,7 +42,7 @@ export default function GoogleAuthButton({ children, ...rest }: TButtonProps) {
         toast.error("Google authentication failed. Please try again.");
         return;
       }
-      await login(code);
+      await login({code});
     },
     onError: (error) => {
       console.error("Google Auth Error:", error);
