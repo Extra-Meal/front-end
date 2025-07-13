@@ -13,9 +13,9 @@ function AreasTable() {
     success: boolean;
     message: string;
     data: Area[];
-  }>("http://localhost:3000/api/areas");
+  }>("/areas");
 
-  const deleteMutation = useDeleteData("http://localhost:3000/api/areas", {
+  const deleteMutation = useDeleteData("/areas", {
     onSuccess: () => {
       toast.success("Area deleted successfully!");
       refetch();
@@ -32,38 +32,36 @@ function AreasTable() {
 
   return (
     <div className="mx-auto py-6">
-      <div className="border">
-        <Table>
-          <TableHeader className="bg-primary text-primary-foreground rounded-md">
-            <TableRow>
-              <TableHead>Area Name</TableHead>
-              <TableHead className="text-center">Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {areas.map((area) => (
-              <TableRow key={area._id}>
-                <TableCell className="font-medium">{area.name}</TableCell>
-                <TableCell className="flex justify-center gap-2">
-                  <AreasFormModal area={area}>
-                    <Button variant="outline" size="sm">
-                      <Edit className="h-4 w-4" />
-                    </Button>
-                  </AreasFormModal>
-                  <Button
-                    variant="destructive"
-                    size="sm"
-                    onClick={() => deleteMutation.mutate(area._id)}
-                    disabled={deleteMutation.isPending}
-                  >
-                    <Trash2 className="h-4 w-4" />
+      <Table>
+        <TableHeader className="bg-primary rounded-md">
+          <TableRow>
+            <TableHead className="text-primary-foreground">Area Name</TableHead>
+            <TableHead className="text-primary-foreground text-end">Actions</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {areas.map((area) => (
+            <TableRow key={area._id}>
+              <TableCell className="font-medium">{area.name}</TableCell>
+              <TableCell className="flex justify-end gap-2">
+                <AreasFormModal area={area}>
+                  <Button variant="outline" size="sm">
+                    <Edit className="h-4 w-4" />
                   </Button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
+                </AreasFormModal>
+                <Button
+                  variant="destructive"
+                  size="sm"
+                  onClick={() => deleteMutation.mutate(area._id)}
+                  disabled={deleteMutation.isPending}
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
     </div>
   );
 }
