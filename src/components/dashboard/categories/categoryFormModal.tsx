@@ -17,6 +17,10 @@ type CategoryFormModalProps = {
   category?: Category;
 };
 function CategoryFormModal({ children, category }: CategoryFormModalProps) {
+  const [open, setOpen] = useState(false);
+  const [, setImageFile] = useState<File | null>(null);
+  const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
+
   const { mutate: createCategory } = usePostData<SanitizedCategory>("category");
   const { mutate: updateCategory } = usePatchData<SanitizedCategory>(category ? `category/${category._id}` : "");
   const { data, isLoading, error, isError, refetch } = useGetData<{
@@ -25,12 +29,6 @@ function CategoryFormModal({ children, category }: CategoryFormModalProps) {
     data: Category[];
   }>("/category");
   console.log(data);
-  if (isLoading) return <p>Loading...</p>;
-  if (isError) return <p>Error: {error?.data.message}</p>;
-
-  const [open, setOpen] = useState(false);
-  const [, setImageFile] = useState<File | null>(null);
-  const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
 
   const form = useForm<SanitizedCategory>({
     resolver: zodResolver(categorySanitizedSchema),
@@ -41,6 +39,9 @@ function CategoryFormModal({ children, category }: CategoryFormModalProps) {
     },
   });
 
+  if (isLoading) return <p>Loading...</p>;
+  if (isError) return <p>Error: {error?.data.message}</p>;
+
   const onSubmit = async (data: SanitizedCategory) => {
     if (category) {
       updateCategory(data, {
@@ -48,8 +49,8 @@ function CategoryFormModal({ children, category }: CategoryFormModalProps) {
           toast.success("Category updated successfully!");
           refetch();
         },
-        onError: (error: any) => {
-          toast.error(error?.response?.data?.message || "Failed to update category.");
+        onError: (error) => {
+          toast.error(error?.data?.message || "Failed to update category.");
         },
       });
     } else {
@@ -58,8 +59,8 @@ function CategoryFormModal({ children, category }: CategoryFormModalProps) {
           toast.success("Category created successfully!");
           refetch();
         },
-        onError: (error: any) => {
-          toast.error(error?.response?.data?.message || "Failed to create category.");
+        onError: (error) => {
+          toast.error(error?.data?.message || "Failed to create category.");
         },
       });
     }

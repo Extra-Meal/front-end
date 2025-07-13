@@ -20,8 +20,8 @@ function CategoryTable() {
       toast.success("Category deleted successfully!");
       refetch();
     },
-    onError: (error: any) => {
-      toast.error(error?.response?.data?.message || "Failed to delete category.");
+    onError: (error) => {
+      toast.error(error?.data?.message || "Failed to delete category.");
     },
   });
 
