@@ -1,6 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { Plus, SlidersHorizontal } from "lucide-react";
-import { m } from "motion/react";
+import { Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { toast } from "sonner";
