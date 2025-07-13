@@ -10,6 +10,7 @@ import Areas from "./pages/areas";
 import Categories from "./pages/categories";
 import Contact from "./pages/contact";
 import Home from "./pages/home";
+import IngredientPage from "./pages/ingredient";
 import IngredientsPage from "./pages/ingrendents";
 import MealPage from "./pages/meal";
 import MenuPage from "./pages/menu";
@@ -25,6 +26,7 @@ export const Router = createBrowserRouter([
       { path: "menu", element: <MenuPage /> },
       { path: "menu/:mealId", element: <MealPage /> },
       { path: "ingredients", element: <IngredientsPage /> },
+      { path: "ingredients/:ingredientId", element: <IngredientPage /> },
       { path: "about", element: <About /> },
       {
         path: "contact",
