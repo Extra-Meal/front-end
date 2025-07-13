@@ -3,19 +3,8 @@ import { Plus } from "lucide-react";
 import AreasFormModal from "@/components/dashboard/areas/areasFormModal";
 import AreasTable from "@/components/dashboard/areas/areasTable";
 import { Button } from "@/components/ui/button";
-import { useGetData } from "@/hooks/useApi";
-import type { Area } from "@/types/area.type";
 
 function AreasDashboard() {
-  const { data, isLoading, error, isError } = useGetData<{
-    success: boolean;
-    message: string;
-    data: Area[];
-  }>("http://localhost:3000/api/areas");
-  console.log("🚀 ~ file: areasDashboard.tsx:13 ~ AreasDashboard ~ data:", data);
-  if (isLoading) return <p>Loading...</p>;
-  if (isError) return <p>Error: {error?.data.message}</p>;
-
   return (
     <main className="container mx-auto p-6">
       <div className="mb-6 flex flex-col items-center justify-between gap-3 sm:flex-row">
@@ -29,7 +18,7 @@ function AreasDashboard() {
           </AreasFormModal>
         </div>
       </div>
-      <AreasTable areas={data?.data} />
+      <AreasTable />
     </main>
   );
 }
