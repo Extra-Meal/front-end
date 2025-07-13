@@ -37,6 +37,10 @@ const menu = [
     title: "Area",
     url: "/area",
   },
+  {
+    title: "Contact Us",
+    url: "/contact",
+  },
 ];
 export default function Navbar() {
   const currentPath = useLocation().pathname;
