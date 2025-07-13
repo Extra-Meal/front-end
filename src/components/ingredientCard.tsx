@@ -1,9 +1,10 @@
+import { Link } from "react-router";
+
 import { currencyFormatter } from "@/lib/currency";
 import type { Product } from "@/types/product.type";
 
 import CartButton from "./cartButton";
 import WishListButton from "./wishListButton";
-import { Link } from "react-router";
 
 type IngredientCardProps = {
   product: Product;
@@ -11,7 +12,10 @@ type IngredientCardProps = {
 export default function IngredientCard({ product }: IngredientCardProps) {
   const ingredient = product.ingredient!;
   return (
-    <Link to={`/ingredients/${ingredient._id}`} className="bg-accent/10 relative overflow-clip rounded-2xl pt-40 shadow-2xl">
+    <Link
+      to={`/ingredients/${ingredient._id}`}
+      className="bg-accent/10 relative overflow-clip rounded-2xl pt-40 shadow-2xl"
+    >
       <img
         src={`https://www.themealdb.com/images/ingredients/${ingredient.name}.png`}
         alt={ingredient.name}
