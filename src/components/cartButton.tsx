@@ -17,7 +17,9 @@ type CartButtonProps = React.ComponentProps<"button"> &
 export default function CartButton({ children, productId, quantity, altText, ...ButtonProps }: CartButtonProps) {
   const { addProductToCart, isProductInCart, isAdding, removeProductFromCart, isRemoving } = useCart();
   const isInCart = isProductInCart(productId);
-  const handleClick = () => {
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
     if (isInCart) {
       removeProductFromCart(productId);
     } else {

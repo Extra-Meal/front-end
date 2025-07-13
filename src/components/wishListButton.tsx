@@ -24,7 +24,9 @@ export default function WishListButton({
   const { addProductToWishlist, removeProductFromWishlist, isProductInWishlist, isAdding, isRemoving } = useWishList();
   const isInWishList = isProductInWishlist(productId);
 
-  function handleCLick() {
+  function handleCLick(e: React.MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
+    e.stopPropagation();
     if (isInWishList) {
       removeProductFromWishlist(productId);
     } else {

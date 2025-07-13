@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 import { currencyFormatter } from "@/lib/currency";
 import type { Meal } from "@/types/meal.type";
 import type { Product } from "@/types/product.type";
@@ -11,7 +13,7 @@ type Props = {
 export default function MealCard({ product }: Props) {
   const meal: Meal = product.meal!;
   return (
-    <section className="relative grid overflow-clip rounded-lg shadow-2xl">
+    <Link to={`/menu/${product._id}`} className="relative grid overflow-clip rounded-lg shadow-2xl">
       <div className="relative -z-10">
         <img className="aspect-video w-full object-cover" src={meal.thumbnail} alt={meal.name} />
         <div className="absolute inset-0 bg-black opacity-30" />
@@ -30,6 +32,6 @@ export default function MealCard({ product }: Props) {
         <CartButton productId={product._id} className="flex w-full justify-center gap-2" />
       </main>
       <WishListButton productId={product._id} className="absolute top-4 right-4 rounded-full" />
-    </section>
+    </Link>
   );
 }
