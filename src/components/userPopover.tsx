@@ -14,7 +14,7 @@ import { useAuth } from "@/hooks/useAuth";
 import LogoutButton from "./logoutButton";
 
 export default function UserPopover() {
-  const { user, isLoading } = useAuth();
+  const { user, isLoading, isAdmin } = useAuth();
   if (isLoading) {
     return <div className="bg-muted h-10 w-10 animate-pulse rounded-full" />;
   }
@@ -39,6 +39,11 @@ export default function UserPopover() {
         <DropdownMenuItem className="mb-2 cursor-pointer" asChild>
           <Link to="/dashboard">Dashboard</Link>
         </DropdownMenuItem>
+        {isAdmin && (
+          <DropdownMenuItem className="mb-2 cursor-pointer" asChild>
+            <Link to="/admin">Admin</Link>
+          </DropdownMenuItem>
+        )}
         <LogoutButton />
       </DropdownMenuContent>
     </DropdownMenu>
