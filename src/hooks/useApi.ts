@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { type UseMutationOptions, type UseQueryOptions, useMutation, useQuery } from "@tanstack/react-query";
+import type { AxiosRequestConfig } from "axios";
 import { useSearchParams } from "react-router";
 
 import { deleteRequest, getRequest, patchRequest, postRequest, putRequest } from "@/lib/api";
@@ -71,11 +72,12 @@ export function useGetDataWithParams<R = any>(
  */
 export function usePostData<T = any, R = any>(
   endpoint: string,
-  options?: Omit<UseMutationOptions<R, APIError, T, [string, T]>, "mutationKey" | "mutationFn">
+  options?: Omit<UseMutationOptions<R, APIError, T, [string, T]>, "mutationKey" | "mutationFn">,
+  requestOptions?: Omit<AxiosRequestConfig<T>, "data">
 ) {
   return useMutation<R, APIError, T, [string, T]>({
     mutationKey: [endpoint],
-    mutationFn: (data: T) => postRequest<T, R>(endpoint, { data }),
+    mutationFn: (data: T) => postRequest<T, R>(endpoint, data, requestOptions),
     ...options,
   });
 }
@@ -95,11 +97,12 @@ export function usePostData<T = any, R = any>(
  */
 export function usePatchData<T = any, R = any>(
   endpoint: string,
-  options?: Omit<UseMutationOptions<R, APIError, T, [string, T]>, "mutationKey" | "mutationFn">
+  options?: Omit<UseMutationOptions<R, APIError, T, [string, T]>, "mutationKey" | "mutationFn">,
+  requestOptions?: Omit<AxiosRequestConfig<FormData>, "data">
 ) {
   return useMutation<R, APIError, T, [string, T]>({
     mutationKey: [endpoint],
-    mutationFn: (data: T) => patchRequest<T, R>(endpoint, { data }),
+    mutationFn: (data: T) => patchRequest<T, R>(endpoint, data, requestOptions),
     ...options,
   });
 }
@@ -119,11 +122,12 @@ export function usePatchData<T = any, R = any>(
  */
 export function usePutData<T = any, R = any>(
   endpoint: string,
-  options?: Omit<UseMutationOptions<R, APIError, T, [string, T]>, "mutationKey" | "mutationFn">
+  options?: Omit<UseMutationOptions<R, APIError, T, [string, T]>, "mutationKey" | "mutationFn">,
+  requestOptions?: Omit<AxiosRequestConfig<FormData>, "data">
 ) {
   return useMutation<R, APIError, T, [string, T]>({
     mutationKey: [endpoint],
-    mutationFn: (data: T) => putRequest<T, R>(endpoint, { data }),
+    mutationFn: (data: T) => putRequest<T, R>(endpoint, data, requestOptions),
     ...options,
   });
 }
