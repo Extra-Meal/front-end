@@ -1,11 +1,11 @@
 // import "@fontsource/dancing-script";
 import CircleType from "circletype";
 import { useLayoutEffect, useRef } from "react";
+import { Link } from "react-router";
 
 import sandwich from "../../assets/2-Ph.png";
 import bg from "../../assets/bg.jfif";
 import { Button } from "../ui/button";
-import { Link } from "react-router";
 
 export default function Hero() {
   const textRef = useRef(null);
@@ -52,7 +52,7 @@ export default function Hero() {
               from scratch. It’s your kitchen, upgraded.
             </p>
             <Button>
-               <Link to="/menu">Make your meal</Link>
+              <Link to="/menu">Make your meal</Link>
             </Button>
           </div>
         </div>
