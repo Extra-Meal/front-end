@@ -1,25 +1,23 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { A11y, Autoplay, Navigation, Pagination, Scrollbar } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
 
+import { useGetData } from "@/hooks/useApi";
+import type { Area } from "@/types/area.type";
+
 import AreaCard from "../Areas/areaCard";
 import { Button } from "../ui/button";
 
-interface Area {
-  strArea: string;
-}
-
 export default function Areas() {
-  const [areas, setAreas] = useState<Area[]>([]);
-
-  useEffect(() => {
-    axios.get("https://www.themealdb.com/api/json/v1/1/list.php?a=list").then((response) => {
-      setAreas(response.data.meals.slice(0, 10));
-    });
-  }, []);
+  const { data, isLoading, error, isError } = useGetData<{
+    success: boolean;
+    message: string;
+    data: Area[];
+  }>("http://localhost:3000/api/areas");
+  console.log(data);
+  if (isLoading) return <p>Loading...</p>;
+  if (isError) return <p>Error: {error?.data.message}</p>;
 
   return (
     <div className="bg-secondary/5 py-20">
@@ -55,8 +53,8 @@ export default function Areas() {
                 },
               }}
             >
-              {areas.map((area) => (
-                <SwiperSlide key={area.strArea} style={{ display: "flex", justifyContent: "center" }}>
+              {data?.data?.map((area) => (
+                <SwiperSlide key={area.name} style={{ display: "flex", justifyContent: "center" }}>
                   <AreaCard area={area} />
                 </SwiperSlide>
               ))}

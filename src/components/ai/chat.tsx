@@ -102,7 +102,7 @@ function BotInput() {
   }, [messages]);
   return (
     <>
-      <div className="flex h-[85%] w-full flex-col justify-between rounded-lg">
+      <div className="flex h-[85%] w-[100%] flex-col items-center justify-between rounded-lg">
         {messages.length === 0 && (
           <>
             <div className="text-primary flex justify-center">
@@ -112,7 +112,7 @@ function BotInput() {
         )}
         <div
           ref={bottomRef}
-          className={messages.length > 0 ? "custom-scrollbar w-full overflow-auto rounded-lg p-2" : "w-full flex-1 p-2"}
+          className={messages.length > 0 ? "custom-scrollbar overflow-auto rounded-lg p-2" : "w-[100%] flex-1 p-2"}
         >
           {messages.map((message) => (
             <AIMessage key={message.id} from={message.role === "user" ? "user" : "assistant"}>

@@ -1,15 +1,11 @@
-import type { Area } from "@/types/area.type";
-
 import img from "../../assets/meal.jfif";
+import type { Area } from "../../types/area.type";
 
-type AreaCardProps = {
-  area: Area;
-};
-function AreaCard({ area }: AreaCardProps) {
+function AreaCard({ area }: { area: Area }) {
   return (
     <div className="area relative w-fit">
       <div className="box relative w-fit overflow-hidden rounded-3xl">
-        <img src={img} alt="" className="h-70 w-65 rounded-3xl" />
+        <img src={img} alt={area.name} className="h-70 w-65 rounded-3xl" />
       </div>
       <span className="caption text-3xl font-bold">{area.name} Plates</span>
     </div>

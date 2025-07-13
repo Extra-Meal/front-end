@@ -1,18 +1,25 @@
-import type { Ingredient } from "@/types/ingredient.type";
+import { Link } from "react-router";
 
-import { Button } from "./ui/button";
+import { currencyFormatter } from "@/lib/currency";
+import type { Product } from "@/types/product.type";
+
+import CartButton from "./cartButton";
 import WishListButton from "./wishListButton";
 
 type IngredientCardProps = {
-  ingredient: Ingredient;
+  product: Product;
 };
-export default function IngredientCard({ ingredient }: IngredientCardProps) {
+export default function IngredientCard({ product }: IngredientCardProps) {
+  const ingredient = product.ingredient!;
   return (
-    <div className="bg-accent/20 relative overflow-clip rounded-2xl pt-40 shadow-2xl" key={ingredient._id}>
+    <Link
+      to={`/ingredients/${ingredient._id}`}
+      className="bg-accent/10 relative overflow-clip rounded-2xl pt-40 shadow-2xl"
+    >
       <img
         src={`https://www.themealdb.com/images/ingredients/${ingredient.name}.png`}
         alt={ingredient.name}
-        className="absolute inset-0 -z-20 h-full w-full rounded-lg object-cover"
+        className="absolute inset-2 -z-20 h-full w-full rounded-lg object-cover"
       />
       <div className="relative flex h-full flex-col gap-4 p-4">
         <div className="bg-background/90 absolute inset-0 -z-10 h-full w-full rounded-lg mask-t-from-28" />
@@ -22,17 +29,16 @@ export default function IngredientCard({ ingredient }: IngredientCardProps) {
         </div>
         <div className="flex-1"></div>
         <div className="flex justify-between">
-          {ingredient.type && (
-            <span className="bg-secondary/50 text-primary text-shadow-2xl mt-2 rounded-full px-3 py-1 text-xs font-semibold">
-              {ingredient.type}
-            </span>
-          )}
+          <div className="flex flex-col">
+            <span className="text-2xl font-semibold">{currencyFormatter(product.price)}</span>
+            <div className="text-secondary text-sm">per Unit</div>
+          </div>
           <div className="flex items-center gap-2">
-            <WishListButton productId={ingredient._id} />
-            <Button>Add to Cart</Button>
+            <WishListButton productId={product._id} />
+            <CartButton productId={product._id}>Add to Cart</CartButton>
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }

@@ -14,11 +14,19 @@ type WishListButtonProps = React.ComponentProps<"button"> &
     altText?: string;
     productId: string;
   };
-export default function WishListButton({ children, productId, altText, ...ButtonProps }: WishListButtonProps) {
+export default function WishListButton({
+  children,
+  productId,
+  altText,
+  className,
+  ...ButtonProps
+}: WishListButtonProps) {
   const { addProductToWishlist, removeProductFromWishlist, isProductInWishlist, isAdding, isRemoving } = useWishList();
   const isInWishList = isProductInWishlist(productId);
 
-  function handleCLick() {
+  function handleCLick(e: React.MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
+    e.stopPropagation();
     if (isInWishList) {
       removeProductFromWishlist(productId);
     } else {
@@ -28,7 +36,7 @@ export default function WishListButton({ children, productId, altText, ...Button
   return (
     <Button
       onClick={handleCLick}
-      className={cn(buttonVariants({ variant: "secondary", size: "icon" }), "")}
+      className={cn(buttonVariants({ variant: "secondary", size: "icon" }), className)}
       {...ButtonProps}
     >
       {isInWishList ? (

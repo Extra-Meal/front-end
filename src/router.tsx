@@ -11,10 +11,14 @@ import Categories from "./pages/categories";
 import Contact from "./pages/contact";
 import AreasDashboard from "./pages/dashboard/areasDashboard";
 import CategoriesDashboard from "./pages/dashboard/categoriesDashboard";
+import UsersDashboard from "./pages/dashboard/UsersDashboard";
 import Home from "./pages/home";
+import IngredientPage from "./pages/ingredient";
 import IngredientsPage from "./pages/ingrendents";
+import MealPage from "./pages/meal";
 import MenuPage from "./pages/menu";
 import VerifyEmail from "./pages/verify-email";
+import WishList from "./pages/wishlsit";
 
 export const Router = createBrowserRouter([
   {
@@ -23,7 +27,9 @@ export const Router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: "menu", element: <MenuPage /> },
+      { path: "menu/:mealId", element: <MealPage /> },
       { path: "ingredients", element: <IngredientsPage /> },
+      { path: "ingredients/:ingredientId", element: <IngredientPage /> },
       { path: "about", element: <About /> },
       {
         path: "contact",
@@ -41,6 +47,10 @@ export const Router = createBrowserRouter([
       {
         path: "area",
         element: <Areas />,
+      },
+      {
+        path: "wishlist",
+        element: <WishList />,
       },
     ],
   },
@@ -79,7 +89,7 @@ export const Router = createBrowserRouter([
       },
       {
         path: "users",
-        element: <div>Users Management</div>,
+        element: <UsersDashboard />,
       },
       {
         path: "meals",
