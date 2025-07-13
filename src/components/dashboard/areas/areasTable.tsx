@@ -20,8 +20,8 @@ function AreasTable() {
       toast.success("Area deleted successfully!");
       refetch();
     },
-    onError: (error: any) => {
-      toast.error(error?.response?.data?.message || "Failed to delete area.");
+    onError: (error) => {
+      toast.error(error?.data?.message || "Failed to delete area.");
     },
   });
 

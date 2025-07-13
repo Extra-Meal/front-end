@@ -17,8 +17,8 @@ function AreaFormModal({ children, area, refetch }: { children: React.ReactNode;
       toast.success("Area created successfully!");
       refetch?.();
     },
-    onError: (error: any) => {
-      toast.error(error?.response?.data?.message || "Failed to create area.");
+    onError: (error) => {
+      toast.error(error?.data?.message || "Failed to create area.");
     },
   });
 
