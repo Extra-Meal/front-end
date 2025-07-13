@@ -1,7 +1,8 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
-import type { PaymentRequest, PaymentResponse } from "@/types/payment.type";
+import type { APISuccess } from "@/types/api.type";
+import type { PaymentRequest, PaymentResponse, paymentIntentResponse } from "@/types/payment.type";
 
 import { usePostData } from "./useApi";
 
@@ -9,29 +10,37 @@ export function usePayment() {
   const queryClient = useQueryClient();
 
   // Create Payment Intent for card payments
-  const createPaymentIntentMutation = usePostData<PaymentRequest, PaymentResponse>("/payments/create-payment-intent", {
+  const {
+    mutate: createPaymentIntent,
+    isPending: isCreatingPaymentIntent,
+    data: paymentIntentData,
+    error: paymentIntentError,
+    isSuccess: paymentIntentSuccess,
+  } = usePostData<PaymentRequest, APISuccess<paymentIntentResponse>>("/payment/payment-intent", {
     onSuccess: (data) => {
-      if (data.success) {
+      console.log("🚀 ~ usePayment ~ data:", data.data);
+      if (data.status === "success") {
         toast.success("Payment intent created successfully!");
-      } else {
-        toast.error(data.error || "Failed to create payment intent");
       }
     },
     onError: (error) => {
+      console.log("🚀 ~ usePayment ~ error:", error);
       toast.error(error.data?.message || "Failed to create payment intent");
     },
   });
 
   // Create Checkout Session for hosted checkout
-  const createCheckoutSessionMutation = usePostData<PaymentRequest, PaymentResponse>(
-    "/payments/create-checkout-session",
+  const createCheckoutSessionMutation = usePostData<PaymentRequest, APISuccess<PaymentResponse>>(
+    "/payment/checkout-session",
     {
       onSuccess: (data) => {
-        if (data.success && data.checkoutSession?.url) {
+        console.log("🚀 ~ usePayment ~ data:", data);
+
+        if (data.data.success && data.data.checkoutSession?.url) {
           // Redirect to Stripe Checkout
-          window.location.href = data.checkoutSession.url;
+          window.location.href = data.data.checkoutSession.url;
         } else {
-          toast.error(data.error || "Failed to create checkout session");
+          toast.error(data.data.error || "Failed to create checkout session");
         }
       },
       onError: (error) => {
@@ -42,7 +51,7 @@ export function usePayment() {
 
   // Confirm payment and clear cart
   const confirmPaymentMutation = usePostData<{ paymentIntentId: string; clientSecret?: string }, { success: boolean }>(
-    "/payments/confirm",
+    "/payment/confirm-payment",
     {
       onSuccess: () => {
         // Invalidate cart and other related queries
@@ -54,17 +63,16 @@ export function usePayment() {
       },
     }
   );
-
   return {
-    createPaymentIntent: createPaymentIntentMutation.mutate,
-    isCreatingPaymentIntent: createPaymentIntentMutation.isPending,
+    createPaymentIntent,
+    isCreatingPaymentIntent,
     createCheckoutSession: createCheckoutSessionMutation.mutate,
     isCreatingCheckoutSession: createCheckoutSessionMutation.isPending,
     confirmPayment: confirmPaymentMutation.mutate,
     isConfirmingPayment: confirmPaymentMutation.isPending,
     // Expose mutation data for manual handling
-    paymentIntentData: createPaymentIntentMutation.data,
-    paymentIntentError: createPaymentIntentMutation.error,
-    paymentIntentSuccess: createPaymentIntentMutation.isSuccess,
+    paymentIntentData,
+    paymentIntentError,
+    paymentIntentSuccess,
   };
 }

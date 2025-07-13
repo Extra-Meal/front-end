@@ -36,3 +36,9 @@ export interface PaymentResponse {
   checkoutSession?: StripeCheckoutSession;
   error?: string;
 }
+
+export interface paymentIntentResponse {
+  client_id: string;
+  client_secret: string;
+  payment_intent_id: string;
+}

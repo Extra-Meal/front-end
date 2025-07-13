@@ -24,8 +24,19 @@ const CheckoutPage: React.FC = () => {
 
   // Handle successful payment intent creation
   useEffect(() => {
-    if (paymentIntentSuccess && paymentIntentData && paymentIntentData.success && paymentIntentData.paymentIntent) {
-      setClientSecret(paymentIntentData.paymentIntent.client_secret);
+    console.log(
+      "Payment intent data:",
+      paymentIntentSuccess,
+      paymentIntentData,
+      paymentIntentData?.data.payment_intent_id
+    );
+    if (
+      paymentIntentSuccess &&
+      paymentIntentData &&
+      paymentIntentData.data.payment_intent_id
+    ) {
+      console.log(paymentIntentData);
+      setClientSecret(paymentIntentData.data.client_secret);
     }
   }, [paymentIntentSuccess, paymentIntentData]);
 
@@ -81,9 +92,9 @@ const CheckoutPage: React.FC = () => {
     <div className="min-h-screen p-4">
       <div className="mx-auto max-w-4xl">
         <div className="mb-6">
-          <Button onClick={() => navigate("/cart")} variant="ghost" className="mb-4">
+          <Button onClick={() => navigate("/")} variant="ghost" className="mb-4">
             <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Cart
+            Back to Home
           </Button>
           <h1 className="text-3xl font-bold">Checkout</h1>
         </div>
