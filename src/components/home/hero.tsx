@@ -5,6 +5,7 @@ import { useLayoutEffect, useRef } from "react";
 import sandwich from "../../assets/2-Ph.png";
 import bg from "../../assets/bg.jfif";
 import { Button } from "../ui/button";
+import { Link } from "react-router";
 
 export default function Hero() {
   const textRef = useRef(null);
@@ -50,7 +51,9 @@ export default function Hero() {
               With Mealify, you can browse curated meals, add all the ingredients with one click, or build your own dish
               from scratch. It’s your kitchen, upgraded.
             </p>
-            <Button>Make your meal</Button>
+            <Button>
+               <Link to="/menu">Make your meal</Link>
+            </Button>
           </div>
         </div>
       </div>
