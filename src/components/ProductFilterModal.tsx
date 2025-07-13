@@ -47,7 +47,7 @@ const FilterModal = () => {
   return (
     <div className="relative">
       <button
-        className="text-primary hover:text-accent mt-2 ml-2 cursor-pointer"
+        className="text-primary hover:bg-primary/10 mt-2 ml-2 cursor-pointer rounded p-2"
         onClick={() => setOpen(true)}
         aria-label="Open filters"
       >
