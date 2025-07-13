@@ -51,7 +51,7 @@ const FilterModal = () => {
         onClick={() => setOpen(true)}
         aria-label="Open filters"
       >
-        <SlidersHorizontal className="h-6 w-6" />
+        <SlidersHorizontal className="h-10 w-6" />
       </button>
 
       {open && (
