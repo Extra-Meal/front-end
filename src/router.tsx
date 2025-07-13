@@ -20,6 +20,8 @@ import IngredientPage from "./pages/ingredient";
 import IngredientsPage from "./pages/ingrendents";
 import MealPage from "./pages/meal";
 import MenuPage from "./pages/menu";
+import CheckoutPage from "./pages/payment/CheckoutPage";
+import PaymentResult from "./pages/payment/PaymentResult";
 import VerifyEmail from "./pages/verify-email";
 import WishList from "./pages/wishlsit";
 
@@ -54,6 +56,14 @@ export const Router = createBrowserRouter([
       {
         path: "wishlist",
         element: <WishList />,
+      },
+      {
+        path: "checkout",
+        element: <CheckoutPage />,
+      },
+      {
+        path: "payment/success",
+        element: <PaymentResult />,
       },
     ],
   },
