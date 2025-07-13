@@ -23,7 +23,7 @@ export default function VerifyEmail() {
   useEffect(() => {
     if (!token) return;
 
-    mutate(token);
+    mutate({ token });
   }, []);
   return (
     <main className="flex h-screen flex-col items-center justify-center gap-6">
