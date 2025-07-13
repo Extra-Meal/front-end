@@ -94,7 +94,6 @@ export default function IngredientsDashboard() {
     });
 
     try {
-     
       console.log("Form Data:", formData);
       await postIngredient.mutateAsync(formData);
       toast.success("Ingredient added successfully!");
