@@ -52,7 +52,7 @@ function CategoryTable() {
                 {category.description.split(".")[0].trim()}.
               </TableCell>
               <TableCell className="flex justify-center gap-2">
-                <CategoryFormModal category={category}>
+                <CategoryFormModal key={category.name + category.description} category={category}>
                   <Button variant="outline" size="sm">
                     <Edit className="h-4 w-4" />
                   </Button>
