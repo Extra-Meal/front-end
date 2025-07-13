@@ -2,6 +2,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { ShieldUser, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { useSearchParams } from "react-router";
+import { toast } from "sonner";
 
 import {
   DropdownMenu,
@@ -204,6 +205,7 @@ function UserRow({ user }: { user: user }) {
                       onSuccess: (data) => {
                         console.log("User role updated successfully:", data);
                         queryClient.invalidateQueries({ queryKey: ["/users"] });
+                        toast.success("User role updated successfully");
                       },
                       onError: (error) => {
                         console.error("Error updating user role:", error);
@@ -225,6 +227,7 @@ function UserRow({ user }: { user: user }) {
               onSuccess: (data) => {
                 console.log("User deleted successfully:", data);
                 queryClient.invalidateQueries({ queryKey: ["/users"] });
+                toast.success("User deleted successfully");
               },
               onError: (error) => {
                 console.error("Error deleting user:", error);

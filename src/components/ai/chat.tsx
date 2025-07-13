@@ -112,7 +112,9 @@ function BotInput() {
         )}
         <div
           ref={bottomRef}
-          className={messages.length > 0 ? "custom-scrollbar overflow-auto rounded-lg p-2" : "w-[100%] flex-1 p-2"}
+          className={
+            messages.length > 0 ? "custom-scrollbar w-[100%] overflow-auto rounded-lg p-2" : "w-[100%] flex-1 p-2"
+          }
         >
           {messages.map((message) => (
             <AIMessage key={message.id} from={message.role === "user" ? "user" : "assistant"}>
