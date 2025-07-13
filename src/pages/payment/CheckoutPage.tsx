@@ -30,11 +30,7 @@ const CheckoutPage: React.FC = () => {
       paymentIntentData,
       paymentIntentData?.data.payment_intent_id
     );
-    if (
-      paymentIntentSuccess &&
-      paymentIntentData &&
-      paymentIntentData.data.payment_intent_id
-    ) {
+    if (paymentIntentSuccess && paymentIntentData && paymentIntentData.data.payment_intent_id) {
       console.log(paymentIntentData);
       setClientSecret(paymentIntentData.data.client_secret);
     }
