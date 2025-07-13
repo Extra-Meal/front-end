@@ -38,7 +38,7 @@ function CategoryTable() {
             <TableHead className="text-primary-foreground">Image</TableHead>
             <TableHead className="text-primary-foreground">Category Name</TableHead>
             <TableHead className="text-primary-foreground w-100">Description</TableHead>
-            <TableHead className="text-primary-foreground text-center">Actions</TableHead>
+            <TableHead className="text-primary-foreground text-end">Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -51,7 +51,7 @@ function CategoryTable() {
               <TableCell className="w-[200px] font-medium whitespace-normal">
                 {category.description.split(".")[0].trim()}.
               </TableCell>
-              <TableCell className="flex justify-center gap-2">
+              <TableCell className="flex justify-end gap-2">
                 <CategoryFormModal key={category.name + category.description} category={category}>
                   <Button variant="outline" size="sm">
                     <Edit className="h-4 w-4" />

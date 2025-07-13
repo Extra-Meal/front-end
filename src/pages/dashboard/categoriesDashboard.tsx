@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 
 function CategoriesDashboard() {
   return (
-    <main className="container mx-auto p-6">
+    <main className="py-6">
       <div className="mb-6 flex flex-col items-center justify-between gap-3 sm:flex-row">
         <h1 className="text-xl font-bold sm:text-2xl">Category Management</h1>
         <div>

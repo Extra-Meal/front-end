@@ -1,10 +1,7 @@
-"use client";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Trash2 } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useSearchParams } from "react-router-dom";
 import { toast } from "sonner";
 import { z } from "zod";
 
@@ -14,16 +11,16 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useDeleteData, useGetDataWithParams, usePostData } from "@/hooks/useApi";
 import { ingredientTypes } from "@/lib/consts";
-import { IngredientSchema } from "@/types/Schemas/ingredient.schema";
 import type { APISuccess } from "@/types/api.type";
+import type { Ingredient } from "@/types/ingredient.type";
 
 type ProductWithIngredient = {
   _id: string;
   image: string;
-  ingredient: IngredientSchema;
+  ingredient: Ingredient;
   stock: number;
   price: number;
 };
@@ -50,8 +47,6 @@ const ingredientFormSchema = z.object({
 type IngredientFormValues = z.infer<typeof ingredientFormSchema>;
 
 export default function IngredientsDashboard() {
-  const [searchParams] = useSearchParams();
-  const page = Number(searchParams.get("page")) || 1;
   const [isDialogOpen, setDialogOpen] = useState(false);
 
   const form = useForm<IngredientFormValues>({
@@ -122,10 +117,10 @@ export default function IngredientsDashboard() {
 
   return (
     <>
-      <div className="w-full">
-        <div className="mb-5 flex items-center justify-between">
+      <div className="w-full py-6">
+        <div className="mb-2 flex items-center justify-between">
           <div>
-            <h1 className="text-foreground text-2xl font-bold">Ingredients Management</h1>
+            <h1 className="text-xl font-bold sm:text-2xl">Ingredients Management</h1>
             <p className="text-muted-foreground mt-2">{data?.data?.pagination.totalProducts || 0} ingredients found</p>
           </div>
           <Dialog open={isDialogOpen} onOpenChange={setDialogOpen}>
@@ -174,7 +169,7 @@ export default function IngredientsDashboard() {
                         <FormLabel>Type</FormLabel>
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>
-                            <SelectTrigger>
+                            <SelectTrigger className="w-full">
                               <SelectValue placeholder="Select type" />
                             </SelectTrigger>
                           </FormControl>
@@ -244,16 +239,15 @@ export default function IngredientsDashboard() {
       </div>
 
       <Table>
-        <TableCaption>List of ingredient products</TableCaption>
-        <TableHeader>
+        <TableHeader className="bg-primary text-primary-foreground rounded-md">
           <TableRow>
-            <TableHead>Image</TableHead>
-            <TableHead>Name</TableHead>
-            <TableHead>Description</TableHead>
-            <TableHead>Type</TableHead>
-            <TableHead>Stock</TableHead>
-            <TableHead>Price</TableHead>
-            <TableHead className="text-right">Delete</TableHead>
+            <TableHead className="text-primary-foreground">Image</TableHead>
+            <TableHead className="text-primary-foreground">Name</TableHead>
+            <TableHead className="text-primary-foreground">Description</TableHead>
+            <TableHead className="text-primary-foreground">Type</TableHead>
+            <TableHead className="text-primary-foreground">Stock</TableHead>
+            <TableHead className="text-primary-foreground">Price</TableHead>
+            <TableHead className="text-primary-foreground text-right">Delete</TableHead>
           </TableRow>
         </TableHeader>
 
@@ -271,13 +265,9 @@ export default function IngredientsDashboard() {
               <TableCell>{product.stock}</TableCell>
               <TableCell>{product.price}</TableCell>
               <TableCell className="text-right">
-                <button
-                  title="Delete Ingredient"
-                  onClick={() => handleDeleteIngredient(product._id)}
-                  className="text-destructive transition-all hover:text-red-600"
-                >
-                  <Trash2 />
-                </button>
+                <Button variant="destructive" size="sm" onClick={() => handleDeleteIngredient(product._id)}>
+                  <Trash2 className="h-4 w-4" />
+                </Button>
               </TableCell>
             </TableRow>
           ))}
