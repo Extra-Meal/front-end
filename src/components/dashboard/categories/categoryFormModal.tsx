@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useQueryClient } from "@tanstack/react-query";
 import { Upload, X } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -8,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useGetData, usePatchData, usePostData } from "@/hooks/useApi";
+import { usePatchData, usePostData } from "@/hooks/useApi";
 import { categorySanitizedSchema } from "@/types/Schemas/category.schema";
 import type { Category, SanitizedCategory } from "@/types/category.type";
 
@@ -20,44 +21,59 @@ function CategoryFormModal({ children, category }: CategoryFormModalProps) {
   const [open, setOpen] = useState(false);
   const [, setImageFile] = useState<File | null>(null);
   const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
-
-  const { mutate: createCategory } = usePostData<SanitizedCategory>("category");
-  const { mutate: updateCategory } = usePatchData<SanitizedCategory>(category ? `category/${category._id}` : "");
-  const { data, isLoading, error, isError, refetch } = useGetData<{
-    success: boolean;
-    message: string;
-    data: Category[];
-  }>("/category");
-  console.log(data);
+  const queryClient = useQueryClient();
+  const { mutate: createCategory } = usePostData(
+    "category",
+    {},
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
+  const { mutate: updateCategory } = usePatchData(
+    category ? `category/${category._id}` : "",
+    {},
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
 
   const form = useForm<SanitizedCategory>({
     resolver: zodResolver(categorySanitizedSchema),
     defaultValues: category || {
       name: "",
       description: "",
-      thumbnail: "",
+      thumbnail: null,
     },
   });
 
-  if (isLoading) return <p>Loading...</p>;
-  if (isError) return <p>Error: {error?.data.message}</p>;
-
   const onSubmit = async (data: SanitizedCategory) => {
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("description", data.description);
+    if (data.thumbnail instanceof File) {
+      formData.append("thumbnail", data.thumbnail);
+    }
+    console.log("Form Data:", formData);
+
     if (category) {
-      updateCategory(data, {
+      updateCategory(formData, {
         onSuccess: () => {
           toast.success("Category updated successfully!");
-          refetch();
+          queryClient.invalidateQueries({ queryKey: ["/category"] });
         },
         onError: (error) => {
           toast.error(error?.data?.message || "Failed to update category.");
         },
       });
     } else {
-      createCategory(data, {
+      createCategory(formData, {
         onSuccess: () => {
           toast.success("Category created successfully!");
-          refetch();
+          queryClient.invalidateQueries({ queryKey: ["/category"] });
         },
         onError: (error) => {
           toast.error(error?.data?.message || "Failed to create category.");
