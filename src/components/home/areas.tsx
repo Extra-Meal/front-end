@@ -62,7 +62,7 @@ export default function Areas() {
           </div>
           <div>
             <Button>
-              <Link to="/areas">View All</Link>
+              <Link to="/area">View All</Link>
             </Button>
           </div>
         </div>
