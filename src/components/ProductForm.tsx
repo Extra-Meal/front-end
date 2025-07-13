@@ -1,6 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Plus, Trash2 } from "lucide-react";
 import { useFieldArray, useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
@@ -12,7 +13,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { useGetData, useGetDataWithParams, usePostData } from "@/hooks/useApi";
 
 import { productSchema } from "../types/Schemas/productdash.schema";
-import { toast } from "sonner";
 
 type Cat = {
   _id: string;
