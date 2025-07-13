@@ -1,10 +1,13 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { Plus, SlidersHorizontal } from "lucide-react";
+import { m } from "motion/react";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { toast } from "sonner";
 
 import FilterModal from "@/components/ProductFilterModal";
 import ProductForm from "@/components/ProductForm";
-import { useGetDataWithParams } from "@/hooks/useApi";
+import { useDeleteData, useGetDataWithParams } from "@/hooks/useApi";
 import type { APISuccess } from "@/types/api.type";
 
 export type MealIngredientInput = {
@@ -27,6 +30,7 @@ export type MealInput = {
 };
 
 export type CreateProductInput = {
+  _id?: string;
   name: string;
   type: "ingredient" | "kit";
   price: number;
@@ -61,7 +65,7 @@ export default function MealsDashboard() {
   const totalPages = data?.data?.pagination.totalPages || 1;
   const meals = data?.data?.products || [];
   const [showForm, setShowForm] = useState(false);
-
+  console.log(data);
   useEffect(() => {
     setSearchParams({ page: page.toString() });
   }, [page]);
@@ -149,26 +153,7 @@ function MealsTable({ meals }: MealsTableProps) {
         </thead>
         <tbody>
           {meals.length > 0 ? (
-            meals.map((meal, index) => (
-              <tr
-                key={index}
-                className="hover:bg-primary group overflow-hidden rounded-2xl shadow-sm transition-all duration-200 hover:scale-102"
-              >
-                <td className="rounded-l-2xl px-6 py-3">{index + 1}</td>
-                <td className="px-6 py-3">{meal.name}</td>
-                <td className="px-6 py-3">${meal.price.toFixed(2)}</td>
-                <td className="px-6 py-3">{meal.stock ?? "N/A"}</td>
-                <td className="px-6 py-3">
-                  {meal.ratingAverage ?? "N/A"} ★ ({meal.ratingCount ?? 0})
-                </td>
-                <td className="space-x-2 rounded-r-2xl px-6 py-3">
-                  <button className="rounded bg-blue-500 px-2 py-1 text-xs text-white">Edit</button>
-                  <button className="bg-primary group-hover:border-background rounded px-2 py-1 text-xs text-white transition-all group-hover:border-1">
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))
+            meals.map((meal, index) => <MealRow key={meal._id} meal={meal} index={index} />)
           ) : (
             <tr>
               <td colSpan={6} className="text-primary px-6 py-3 text-sm">
@@ -179,5 +164,45 @@ function MealsTable({ meals }: MealsTableProps) {
         </tbody>
       </table>
     </div>
+  );
+}
+
+function MealRow({ meal, index }: { meal: CreateProductInput; index: number }) {
+  const queryClient = useQueryClient();
+  const { mutate } = useDeleteData(`/products`);
+
+  return (
+    <tr className="hover:bg-primary group overflow-hidden rounded-2xl shadow-sm transition-all duration-200 hover:scale-102">
+      <td className="rounded-l-2xl px-6 py-3">{index + 1}</td>
+      <td className="px-6 py-3">{meal.name}</td>
+      <td className="px-6 py-3">${meal.price.toFixed(2)}</td>
+      <td className="px-6 py-3">{meal.stock ?? "N/A"}</td>
+      <td className="px-6 py-3">
+        {meal.ratingAverage ?? "N/A"} ★ ({meal.ratingCount ?? 0})
+      </td>
+      <td className="space-x-2 rounded-r-2xl px-6 py-3">
+        <button
+          onClick={() => {
+            if (!meal._id) {
+              toast.error("Meal ID is missing, cannot delete.");
+              return;
+            }
+            mutate(meal._id, {
+              onSuccess: (data) => {
+                console.log("User deleted successfully:", data);
+                queryClient.invalidateQueries({ queryKey: ["/products/kits"] });
+                toast.success("User deleted successfully");
+              },
+              onError: (error) => {
+                console.error("Error deleting user:", error);
+              },
+            });
+          }}
+          className="bg-primary hover:bg-primary/90 group-hover:border-background rounded px-2 py-1 text-xs text-white transition-all group-hover:border-1"
+        >
+          Delete
+        </button>
+      </td>
+    </tr>
   );
 }

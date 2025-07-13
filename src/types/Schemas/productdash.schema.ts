@@ -11,7 +11,7 @@ export const mealInputSchema = z.object({
   category: z.string().min(1),
   area: z.string().min(1),
   instructions: z.string().optional(),
-  tags: z.array(z.string()).optional(),
+  tags: z.union([z.string(), z.array(z.string())]).optional(),
   youtube: z.string().url().optional(),
   source: z.string().url().optional(),
   ingredients: z.array(mealIngredientSchema),
